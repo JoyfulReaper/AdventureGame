@@ -17,7 +17,7 @@ public partial class Form1 : Form
     Room _room2 = default!;
     Room _room3 = default!;
 
-    Room[] _map = default!;
+    private RoomList _map = default!;
 
     private Actor _player = default!;
 
@@ -30,17 +30,17 @@ public partial class Form1 : Form
 
     private void InitGame()
     {
-        _room0 = new Room("Troll Room", "a dank, dark room that smells of troll", -1, 2, -1, 1);
-        _room1 = new Room("Forest", "a light, airy forest shimmering with sunlight", -1, -1, 0, -1);
-        _room2 = new Room("Cave", "a vast cave with walls covered by luminous moss", 0, -1, -1, 3);
-        _room3 = new Room("Dungeon", "a gloomy dungeon. Rats scurry across its floor", -1, -1, 2, -1);
+        _room0 = new Room("Troll Room", "a dank, dark room that smells of troll", Rm.NOEXIT, Rm.Cave, Rm.NOEXIT, Rm.Forest);
+        _room1 = new Room("Forest", "a light, airy forest shimmering with sunlight", Rm.NOEXIT, Rm.NOEXIT, Rm.TrollRoom, Rm.NOEXIT);
+        _room2 = new Room("Cave", "a vast cave with walls covered by luminous moss", Rm.TrollRoom, Rm.NOEXIT, Rm.NOEXIT, Rm.Dungeon);
+        _room3 = new Room("Dungeon", "a gloomy dungeon. Rats scurry across its floor", Rm.NOEXIT, Rm.NOEXIT, Rm.Cave, Rm.NOEXIT);
 
-        _map = new Room[4];
-
-        _map[0] = _room0;
-        _map[1] = _room1;
-        _map[2] = _room2;
-        _map[3] = _room3;
+        _map = new RoomList {
+            { Rm.TrollRoom, _room0 },
+            { Rm.Forest, _room1 },
+            { Rm.Cave, _room2 },
+            { Rm.Dungeon, _room3 }
+        };
 
         _player = new Actor("You", "The Player", _room0);
     }
@@ -54,9 +54,9 @@ public partial class Form1 : Form
         outputTB.AppendText("Click a direction button: N, S, W or E.\r\n");
     }
 
-    private void MovePlayer(int newpos)
+    private void MovePlayer(Rm newpos)
     {
-        if (newpos == -1)
+        if (newpos == Rm.NOEXIT)
         {
             outputTB.Text = "There is no exit in that direction\r\n";
         }

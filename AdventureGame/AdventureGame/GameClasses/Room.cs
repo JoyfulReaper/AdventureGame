@@ -1,7 +1,7 @@
 ﻿namespace AdventureGame.GameClasses;
 public class Room : Thing
 {
-    public Room(string name, string description, int n, int s, int w, int e)
+    public Room(string name, string description, Rm n, Rm s, Rm w, Rm e)
         : base (name, description)
     {
         _n = n;
@@ -10,29 +10,34 @@ public class Room : Thing
         _e = e;
     }
 
-    private int _n;
-    private int _s;
-    private int _e;
-    private int _w;
+    private Rm _n;
+    private Rm _s;
+    private Rm _e;
+    private Rm _w;
 
 
-    public int N {
+    public Rm N {
         get => _n;
         set => _n = value;
     }
 
-    public int S {
+    public Rm S {
         get => _s;
         set => _s = value;
     }
 
-    public int E {
+    public Rm E {
         get => _e;
         set => _e = value;
     }
 
-    public int W {
+    public Rm W {
         get => _w;
         set => _w = value;
+    }
+
+    public string Describe()
+    {
+        return $"[{Name}] This is {Description}";
     }
 }
