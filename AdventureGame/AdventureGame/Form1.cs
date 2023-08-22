@@ -1,3 +1,5 @@
+using AdventureGame.GameClasses;
+
 namespace AdventureGame;
 
 public partial class Form1 : Form
@@ -10,14 +12,14 @@ public partial class Form1 : Form
     *  Cave  -----  Dungeon  
     * */
 
-    Room room0;
-    Room room1;
-    Room room2;
-    Room room3;
+    Room _room0 = default!;
+    Room _room1 = default!;
+    Room _room2 = default!;
+    Room _room3 = default!;
 
-    Room[] map;
+    Room[] _map = default!;
 
-    int position;
+    private Actor _player = default!;
 
     public Form1()
     {
@@ -28,54 +30,26 @@ public partial class Form1 : Form
 
     private void InitGame()
     {
-        room0 = new Room();
-        room1 = new Room();
-        room2 = new Room();
-        room3 = new Room();
+        _room0 = new Room("Troll Room", "a dank, dark room that smells of troll", -1, 2, -1, 1);
+        _room1 = new Room("Forest", "a light, airy forest shimmering with sunlight", -1, -1, 0, -1);
+        _room2 = new Room("Cave", "a vast cave with walls covered by luminous moss", 0, -1, -1, 3);
+        _room3 = new Room("Dungeon", "a gloomy dungeon. Rats scurry across its floor", -1, -1, 2, -1);
 
-        map = new Room[4];
+        _map = new Room[4];
 
-        map[0] = room0;
-        map[1] = room1;
-        map[2] = room2;
-        map[3] = room3;
+        _map[0] = _room0;
+        _map[1] = _room1;
+        _map[2] = _room2;
+        _map[3] = _room3;
 
-        room0.Name = "Troll Room";
-        room0.Description = "a dank, dark room that smells of troll";
-        room0.n = -1;
-        room0.s = 2;
-        room0.w = -1;
-        room0.e = 1;
-
-        room1.Name = "Forest";
-        room1.Description = "a light, airy forest shimmering with sunlight";
-        room1.n = -1;
-        room1.s = -1;
-        room1.w = 0;
-        room1.e = -1;
-
-        room2.Name = "Cave";
-        room2.Description = "a vast cave with walls covered by luminous moss";
-        room2.n = 0;
-        room2.s = -1;
-        room2.w = -1;
-        room2.e = 3;
-
-        room3.Name = "Dungeon";
-        room3.Description = "a gloomy dungeon. Rats scurry across its floor";
-        room3.n = -1;
-        room3.s = -1;
-        room3.w = 2;
-        room3.e = -1;
-
-        position = 0;
+        _player = new Actor("You", "The Player", _room0);
     }
 
     private void StartGame()
     {
         outputTB.Text = $"Welcome to the Great Adventure!\r\n";
-        outputTB.AppendText($"You are in the {map[position].Name}.");
-        outputTB.AppendText($"It is {map[position].Description}\r\n");
+        outputTB.AppendText($"You are in the {_player.Location.Name}.");
+        outputTB.AppendText($"It is {_player.Location.Description}\r\n");
         outputTB.AppendText("Where do you want to go now?\r\n");
         outputTB.AppendText("Click a direction button: N, S, W or E.\r\n");
     }
@@ -88,34 +62,34 @@ public partial class Form1 : Form
         }
         else
         {
-            position = newpos;
-            outputTB.Text = $"You are now in the {map[position].Name}\r\n";
+            _player.Location = _map[newpos];
+            outputTB.Text = $"You are in the {_player.Location.Name}.\r\n";
         }
     }
 
     private void NBtn_Click(object sender, EventArgs e)
     {
-        MovePlayer(map[position].n);
+        MovePlayer(_player.Location.N);
     }
 
     private void SBtn_Click(object sender, EventArgs e)
     {
-        MovePlayer(map[position].s);
+        MovePlayer(_player.Location.S);
     }
 
     private void WBtn_Click(object sender, EventArgs e)
     {
-        MovePlayer(map[position].w);
+        MovePlayer(_player.Location.W);
     }
 
     private void EBtn_Click(object sender, EventArgs e)
     {
-        MovePlayer(map[position].e);
+        MovePlayer(_player.Location.E);
     }
 
     private void LookBtn_Click(object sender, EventArgs e)
     {
-        outputTB.Text = $"You are in the {map[position].Name}.\r\n";
-        outputTB.AppendText($"It is {map[position].Description}\r\n");
+        outputTB.Text = $"You are in the {_player.Location.Name}.\r\n";
+        outputTB.AppendText($"It is {_player.Location.Description}\r\n");
     }
 }
