@@ -1,11 +1,11 @@
 ﻿namespace AdventureGame.GameClasses;
 
-public class Actor : Thing
+public class Actor : ThingHolder
 {
     private Room _location = default!;
 
-    public Actor(string name, string description, Room room) :
-        base(name, description)
+    public Actor(string name, string description, Room room, ThingList thingList) :
+        base(name, description, thingList)
     {
         _location = room;
     }

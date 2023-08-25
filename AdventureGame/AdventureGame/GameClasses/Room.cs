@@ -1,8 +1,8 @@
 ﻿namespace AdventureGame.GameClasses;
-public class Room : Thing
+public class Room : ThingHolder
 {
-    public Room(string name, string description, Rm n, Rm s, Rm w, Rm e)
-        : base (name, description)
+    public Room(string name, string description, Rm n, Rm s, Rm w, Rm e, ThingList thingList)
+        : base (name, description, thingList)
     {
         _n = n;
         _s = s;
@@ -38,6 +38,6 @@ public class Room : Thing
 
     public string Describe()
     {
-        return $"[{Name}] This is {Description}";
+        return $"[{Name}] This is {Description}" + "\r\nHere there is: " + Things.Describe();
     }
 }

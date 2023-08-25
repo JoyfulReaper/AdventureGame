@@ -8,3 +8,10 @@ public enum Rm
     Dungeon,
     NOEXIT
 }
+
+public enum Dir {
+    NORTH,
+    SOUTH,
+    EAST,
+    WEST
+}
