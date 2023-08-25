@@ -146,6 +146,7 @@ partial class Form1
         TakeBtn.TabIndex = 0;
         TakeBtn.Text = "Take";
         TakeBtn.UseVisualStyleBackColor = true;
+        TakeBtn.Click += TakeBtn_Click;
         // 
         // Form1
         // 

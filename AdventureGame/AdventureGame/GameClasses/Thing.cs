@@ -28,4 +28,9 @@ public class Thing
         get => _description;
         set => _description = value;
     }
+
+    public bool CanTake {
+        get => _cantake;
+        set => _cantake = value;
+    }
 }

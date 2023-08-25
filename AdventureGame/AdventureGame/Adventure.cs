@@ -76,21 +76,51 @@ public class Adventure
 
     public string MovePlayerTo(Dir direction)
     {
-        string s;
+        string output;
         if (MoveTo(_player, direction) == Rm.NOEXIT)
         {
-            s = $"There is no exit in that direction.{Environment.NewLine}";
+            output = $"There is no exit in that direction.{Environment.NewLine}";
         }
         else
         {
-            s = $"You are in the {_player.Location.Name}{Environment.NewLine}";
+            output = $"You are in the {_player.Location.Name}{Environment.NewLine}";
         }
-        return s;
+        return output;
     }
 
     private void TransferOb(Thing thing, ThingList source, ThingList destination)
     {
         source.Remove(thing);
         destination.Add(thing);
+    }
+
+    public string TakeOb(string obName)
+    {
+        Thing? thing = _player.Location.Things.ThisOb(obName);
+        string output = string.Empty;
+
+        if(string.IsNullOrWhiteSpace(obName))
+        {
+            obName = "nameless object";
+        }
+
+        if (thing is null)
+        {
+            output = $"There is no {obName} here!";
+        }
+        else
+        {
+            if (thing.CanTake)
+            {
+                TransferOb(thing, _player.Location.Things, _player.Things);
+                output = $"{thing.Name} taken!";
+            }
+            else
+            {
+                output = $"You can't take the {thing.Name}!";
+            }
+        }
+
+        return output;
     }
 }
