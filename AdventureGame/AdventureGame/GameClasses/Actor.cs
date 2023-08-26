@@ -14,4 +14,7 @@ public class Actor : ThingHolder
         get => _location;
         set => _location = value;
     }
+
+    public override string Describe() =>
+        $"[{Name}] ({Description}) is in {_location.Describe()}";
 }

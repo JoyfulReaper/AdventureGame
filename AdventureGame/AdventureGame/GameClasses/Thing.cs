@@ -34,4 +34,7 @@ public class Thing
         get => _canTake;
         set => _canTake = value;
     }
+
+    public virtual string Describe() =>
+        $"{Name} {Description}";
 }

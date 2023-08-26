@@ -74,10 +74,9 @@ public class Adventure
         return exit;
     }
 
-    private void MoveActorTo(Actor actor, Room room)
-    {
+    private static void MoveActorTo(Actor actor, Room room) =>
         actor.Location = room;
-    }
+    
 
     public string MovePlayerTo(Dir direction)
     {
@@ -93,7 +92,7 @@ public class Adventure
         return output;
     }
 
-    private void TransferOb(Thing thing, ThingList source, ThingList destination)
+    private static void TransferOb(Thing thing, ThingList source, ThingList destination)
     {
         source.Remove(thing);
         destination.Add(thing);
@@ -132,16 +131,44 @@ public class Adventure
     public string DropOb(string obName)
     {
         Thing? thing = _player.Things.ThisOb(obName);
-        string s;
+        string output;
         if (thing is null)
         {
-            s = "You haven't got one!";
+            output = "You haven't got one!";
         }
         else
         {
             TransferOb(thing, _player.Things, _player.Location.Things);
-            s = thing.Name + " dropped!";
+            output = thing.Name + " dropped!";
         }
-        return s;
+        return output;
+    }
+
+    public string LookAtOb(string obName)
+    {
+        Thing? thing;
+        string output;
+
+        if (string.IsNullOrEmpty(obName))
+        {
+            output = "You'll have to say what you want to look at!";
+        }
+        else
+        {
+            thing = _player.Location.Things.ThisOb(obName);
+            if (thing is null)
+            {
+                thing = _player.Things.ThisOb(obName);
+            }
+            if (thing is null)
+            {
+                output = $"There is no {obName} here!";
+            }
+            else
+            {
+                output = thing.Description + ".";
+            }
+        }
+        return output;
     }
 }

@@ -31,6 +31,6 @@ public class ThingHolder : Thing
         _things.AddRange(thinglist);
     }
 
-    public virtual string Describe() =>
+    public override string Describe() =>
         $"Name: {Name}, Description: {Description} which contains -> {_things.Describe()}";
 }

@@ -28,6 +28,7 @@ partial class Form1
     /// </summary>
     private void InitializeComponent()
     {
+        components = new System.ComponentModel.Container();
         outputTB = new TextBox();
         EBtn = new Button();
         NBtn = new Button();
@@ -36,6 +37,7 @@ partial class Form1
         LookBtn = new Button();
         InventoryBtn = new Button();
         groupBox1 = new GroupBox();
+        LookAtBtn = new Button();
         inputTB = new TextBox();
         DropBtn = new Button();
         TakeBtn = new Button();
@@ -44,15 +46,16 @@ partial class Form1
         // 
         // outputTB
         // 
-        outputTB.Location = new Point(12, 12);
+        outputTB.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
+        outputTB.Location = new Point(12, 27);
         outputTB.Multiline = true;
         outputTB.Name = "outputTB";
-        outputTB.Size = new Size(557, 257);
+        outputTB.Size = new Size(846, 392);
         outputTB.TabIndex = 0;
         // 
         // EBtn
         // 
-        EBtn.Location = new Point(494, 309);
+        EBtn.Location = new Point(776, 513);
         EBtn.Name = "EBtn";
         EBtn.Size = new Size(75, 23);
         EBtn.TabIndex = 4;
@@ -62,7 +65,7 @@ partial class Form1
         // 
         // NBtn
         // 
-        NBtn.Location = new Point(454, 280);
+        NBtn.Location = new Point(736, 484);
         NBtn.Name = "NBtn";
         NBtn.Size = new Size(75, 23);
         NBtn.TabIndex = 2;
@@ -72,7 +75,7 @@ partial class Form1
         // 
         // WBtn
         // 
-        WBtn.Location = new Point(400, 309);
+        WBtn.Location = new Point(682, 513);
         WBtn.Name = "WBtn";
         WBtn.Size = new Size(75, 23);
         WBtn.TabIndex = 3;
@@ -82,7 +85,7 @@ partial class Form1
         // 
         // SBtn
         // 
-        SBtn.Location = new Point(454, 338);
+        SBtn.Location = new Point(736, 542);
         SBtn.Name = "SBtn";
         SBtn.Size = new Size(75, 23);
         SBtn.TabIndex = 5;
@@ -93,7 +96,7 @@ partial class Form1
         // LookBtn
         // 
         LookBtn.BackColor = SystemColors.ControlLight;
-        LookBtn.Location = new Point(289, 309);
+        LookBtn.Location = new Point(571, 513);
         LookBtn.Name = "LookBtn";
         LookBtn.Size = new Size(75, 23);
         LookBtn.TabIndex = 1;
@@ -103,7 +106,7 @@ partial class Form1
         // 
         // InventoryBtn
         // 
-        InventoryBtn.Location = new Point(289, 338);
+        InventoryBtn.Location = new Point(571, 542);
         InventoryBtn.Name = "InventoryBtn";
         InventoryBtn.Size = new Size(75, 23);
         InventoryBtn.TabIndex = 7;
@@ -113,22 +116,34 @@ partial class Form1
         // 
         // groupBox1
         // 
+        groupBox1.Controls.Add(LookAtBtn);
         groupBox1.Controls.Add(inputTB);
         groupBox1.Controls.Add(DropBtn);
         groupBox1.Controls.Add(TakeBtn);
-        groupBox1.Location = new Point(12, 280);
+        groupBox1.Location = new Point(12, 484);
         groupBox1.Name = "groupBox1";
-        groupBox1.Size = new Size(200, 90);
+        groupBox1.Size = new Size(315, 91);
         groupBox1.TabIndex = 6;
         groupBox1.TabStop = false;
         groupBox1.Text = "Select object...";
+        // 
+        // LookAtBtn
+        // 
+        LookAtBtn.Location = new Point(229, 58);
+        LookAtBtn.Name = "LookAtBtn";
+        LookAtBtn.Size = new Size(75, 23);
+        LookAtBtn.TabIndex = 3;
+        LookAtBtn.Text = "Look At";
+        LookAtBtn.UseVisualStyleBackColor = true;
+        LookAtBtn.Click += LookAtBtn_Click;
         // 
         // inputTB
         // 
         inputTB.Location = new Point(7, 20);
         inputTB.Name = "inputTB";
-        inputTB.Size = new Size(187, 25);
+        inputTB.Size = new Size(297, 25);
         inputTB.TabIndex = 2;
+        inputTB.KeyDown += inputTB_KeyDown;
         // 
         // DropBtn
         // 
@@ -154,7 +169,7 @@ partial class Form1
         // 
         AutoScaleDimensions = new SizeF(7F, 17F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(581, 382);
+        ClientSize = new Size(870, 588);
         Controls.Add(groupBox1);
         Controls.Add(InventoryBtn);
         Controls.Add(LookBtn);
@@ -164,7 +179,7 @@ partial class Form1
         Controls.Add(EBtn);
         Controls.Add(outputTB);
         Name = "Form1";
-        Text = "Adventure Game";
+        Text = "Dark Neon City...";
         groupBox1.ResumeLayout(false);
         groupBox1.PerformLayout();
         ResumeLayout(false);
@@ -184,4 +199,5 @@ partial class Form1
     private TextBox inputTB;
     private Button DropBtn;
     private Button TakeBtn;
+    private Button LookAtBtn;
 }

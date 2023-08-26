@@ -38,6 +38,6 @@ public class Room : ThingHolder
 
     public override string Describe()
     {
-        return $"[{Name}] This is {Description}" + "\r\nHere there is: " + Things.Describe();
+        return $"[{Name}] This is {Description}{Environment.NewLine}Here there is: {Things.Describe()}";
     }
 }

@@ -91,4 +91,24 @@ public partial class Form1 : Form
     {
         ShowInventory();
     }
+
+    private void LookAtBtn_Click(object sender, EventArgs e)
+    {
+        WriteLineToTextBox(_adv.LookAtOb(inputTB.Text));
+    }
+
+    private void inputTB_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter)
+        {
+            WriteLineToTextBox(_adv.LookAtOb(inputTB.Text));
+            e.Handled = true;
+            e.SuppressKeyPress = true;
+        }
+    }
+
+    private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+
+    }
 }
