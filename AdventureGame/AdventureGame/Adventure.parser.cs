@@ -114,7 +114,7 @@ partial class Adventure
         }
         else if (wt3.Type != WT.NOUN)
         {
-            output = $"Can't do this because '{wt3.Word}' is not an object!\r\n";
+            output = $"Can't do this because '{wt3.Word}' is not an object!{Environment.NewLine}";
         }
         else
         {

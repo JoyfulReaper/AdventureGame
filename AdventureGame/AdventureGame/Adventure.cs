@@ -1,5 +1,4 @@
 ﻿using AdventureGame.GameClasses;
-using System.Xml.Linq;
 
 namespace AdventureGame;
 /// <summary>
@@ -246,9 +245,9 @@ public partial class Adventure
         return thing;
     }
 
-    private string TryToOpen(ContainerThing container)
+    private static string TryToOpen(ContainerThing container)
     {
-        string output = "";
+        string output;
         if (!container.Openable)
         {
             output = $"Can't open the {container.Name}";
@@ -268,9 +267,9 @@ public partial class Adventure
         return output;
     }
 
-    private string TryToClose(ContainerThing container)
+    private static string TryToClose(ContainerThing container)
     {
-        string output = "";
+        string output;
         if (!container.Openable)
         {
             output = $"Can't close the {container.Name}";

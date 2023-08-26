@@ -6,7 +6,9 @@ namespace AdventureGame.GameClasses;
 public class RoomList : Dictionary<Rm,  Room>
 {
     protected RoomList(SerializationInfo info, StreamingContext context)
-        : base(info, context) { }
+        : base(info, context) {
+        // constructor needed for serialization
+    }
 
     public RoomList() { }
 
