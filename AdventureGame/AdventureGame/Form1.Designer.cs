@@ -49,24 +49,31 @@ partial class Form1
         exitToolStripMenuItem = new ToolStripMenuItem();
         saveFileDialog1 = new SaveFileDialog();
         openFileDialog1 = new OpenFileDialog();
+        UpBtn = new Button();
+        DownBtn = new Button();
+        cmdTB = new TextBox();
+        label1 = new Label();
+        button1 = new Button();
         groupBox1.SuspendLayout();
         menuStrip1.SuspendLayout();
         SuspendLayout();
         // 
         // outputTB
         // 
+        outputTB.BackColor = Color.Black;
         outputTB.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
+        outputTB.ForeColor = Color.Lime;
         outputTB.Location = new Point(12, 27);
         outputTB.Multiline = true;
         outputTB.Name = "outputTB";
-        outputTB.Size = new Size(846, 392);
+        outputTB.Size = new Size(688, 429);
         outputTB.TabIndex = 0;
         // 
         // EBtn
         // 
-        EBtn.Location = new Point(776, 513);
+        EBtn.Location = new Point(558, 512);
         EBtn.Name = "EBtn";
-        EBtn.Size = new Size(75, 23);
+        EBtn.Size = new Size(45, 23);
         EBtn.TabIndex = 4;
         EBtn.Text = "E";
         EBtn.UseVisualStyleBackColor = true;
@@ -74,9 +81,9 @@ partial class Form1
         // 
         // NBtn
         // 
-        NBtn.Location = new Point(736, 484);
+        NBtn.Location = new Point(531, 483);
         NBtn.Name = "NBtn";
-        NBtn.Size = new Size(75, 23);
+        NBtn.Size = new Size(45, 23);
         NBtn.TabIndex = 2;
         NBtn.Text = "N";
         NBtn.UseVisualStyleBackColor = true;
@@ -84,9 +91,9 @@ partial class Form1
         // 
         // WBtn
         // 
-        WBtn.Location = new Point(682, 513);
+        WBtn.Location = new Point(507, 512);
         WBtn.Name = "WBtn";
-        WBtn.Size = new Size(75, 23);
+        WBtn.Size = new Size(45, 23);
         WBtn.TabIndex = 3;
         WBtn.Text = "W";
         WBtn.UseVisualStyleBackColor = true;
@@ -94,9 +101,9 @@ partial class Form1
         // 
         // SBtn
         // 
-        SBtn.Location = new Point(736, 542);
+        SBtn.Location = new Point(531, 541);
         SBtn.Name = "SBtn";
-        SBtn.Size = new Size(75, 23);
+        SBtn.Size = new Size(45, 23);
         SBtn.TabIndex = 5;
         SBtn.Text = "S";
         SBtn.UseVisualStyleBackColor = true;
@@ -105,7 +112,7 @@ partial class Form1
         // LookBtn
         // 
         LookBtn.BackColor = SystemColors.ControlLight;
-        LookBtn.Location = new Point(571, 513);
+        LookBtn.Location = new Point(355, 512);
         LookBtn.Name = "LookBtn";
         LookBtn.Size = new Size(75, 23);
         LookBtn.TabIndex = 1;
@@ -115,7 +122,7 @@ partial class Form1
         // 
         // InventoryBtn
         // 
-        InventoryBtn.Location = new Point(571, 542);
+        InventoryBtn.Location = new Point(355, 553);
         InventoryBtn.Name = "InventoryBtn";
         InventoryBtn.Size = new Size(75, 23);
         InventoryBtn.TabIndex = 7;
@@ -179,7 +186,7 @@ partial class Form1
         menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
         menuStrip1.Location = new Point(0, 0);
         menuStrip1.Name = "menuStrip1";
-        menuStrip1.Size = new Size(870, 25);
+        menuStrip1.Size = new Size(712, 25);
         menuStrip1.TabIndex = 8;
         menuStrip1.Text = "menuStrip1";
         // 
@@ -193,33 +200,33 @@ partial class Form1
         // lToolStripMenuItem
         // 
         lToolStripMenuItem.Name = "lToolStripMenuItem";
-        lToolStripMenuItem.Size = new Size(180, 22);
+        lToolStripMenuItem.Size = new Size(117, 22);
         lToolStripMenuItem.Text = "&Load";
         lToolStripMenuItem.Click += lToolStripMenuItem_Click;
         // 
         // saveToolStripMenuItem
         // 
         saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-        saveToolStripMenuItem.Size = new Size(180, 22);
+        saveToolStripMenuItem.Size = new Size(117, 22);
         saveToolStripMenuItem.Text = "&Save";
         saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
         // 
         // restartToolStripMenuItem
         // 
         restartToolStripMenuItem.Name = "restartToolStripMenuItem";
-        restartToolStripMenuItem.Size = new Size(180, 22);
+        restartToolStripMenuItem.Size = new Size(117, 22);
         restartToolStripMenuItem.Text = "&Restart";
         restartToolStripMenuItem.Click += restartToolStripMenuItem_Click;
         // 
         // toolStripSeparator1
         // 
         toolStripSeparator1.Name = "toolStripSeparator1";
-        toolStripSeparator1.Size = new Size(177, 6);
+        toolStripSeparator1.Size = new Size(114, 6);
         // 
         // exitToolStripMenuItem
         // 
         exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-        exitToolStripMenuItem.Size = new Size(180, 22);
+        exitToolStripMenuItem.Size = new Size(117, 22);
         exitToolStripMenuItem.Text = "E&xit";
         exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
         // 
@@ -227,11 +234,63 @@ partial class Form1
         // 
         openFileDialog1.FileName = "openFileDialog1";
         // 
+        // UpBtn
+        // 
+        UpBtn.BackColor = SystemColors.ControlLight;
+        UpBtn.Location = new Point(622, 468);
+        UpBtn.Name = "UpBtn";
+        UpBtn.Size = new Size(58, 23);
+        UpBtn.TabIndex = 9;
+        UpBtn.Text = "Up";
+        UpBtn.UseVisualStyleBackColor = true;
+        // 
+        // DownBtn
+        // 
+        DownBtn.BackColor = SystemColors.ControlLight;
+        DownBtn.Location = new Point(622, 553);
+        DownBtn.Name = "DownBtn";
+        DownBtn.Size = new Size(58, 23);
+        DownBtn.TabIndex = 10;
+        DownBtn.Text = "Down";
+        DownBtn.UseVisualStyleBackColor = true;
+        // 
+        // cmdTB
+        // 
+        cmdTB.Location = new Point(139, 462);
+        cmdTB.Name = "cmdTB";
+        cmdTB.Size = new Size(280, 25);
+        cmdTB.TabIndex = 11;
+        // 
+        // label1
+        // 
+        label1.AutoSize = true;
+        label1.Location = new Point(19, 465);
+        label1.Name = "label1";
+        label1.Size = new Size(114, 17);
+        label1.TabIndex = 12;
+        label1.Text = "Enter a command:";
+        // 
+        // button1
+        // 
+        button1.BackColor = SystemColors.ControlLight;
+        button1.Font = new Font("Wingdings 2", 12F, FontStyle.Regular, GraphicsUnit.Point);
+        button1.Location = new Point(425, 462);
+        button1.Name = "button1";
+        button1.Size = new Size(26, 23);
+        button1.TabIndex = 13;
+        button1.Text = "P";
+        button1.UseVisualStyleBackColor = true;
+        // 
         // Form1
         // 
         AutoScaleDimensions = new SizeF(7F, 17F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(870, 588);
+        ClientSize = new Size(712, 584);
+        Controls.Add(button1);
+        Controls.Add(label1);
+        Controls.Add(cmdTB);
+        Controls.Add(DownBtn);
+        Controls.Add(UpBtn);
         Controls.Add(groupBox1);
         Controls.Add(InventoryBtn);
         Controls.Add(LookBtn);
@@ -243,7 +302,7 @@ partial class Form1
         Controls.Add(menuStrip1);
         MainMenuStrip = menuStrip1;
         Name = "Form1";
-        Text = "Dark Neon City...";
+        Text = "The Adventure of the Dark Neon City";
         groupBox1.ResumeLayout(false);
         groupBox1.PerformLayout();
         menuStrip1.ResumeLayout(false);
@@ -275,4 +334,9 @@ partial class Form1
     private ToolStripMenuItem exitToolStripMenuItem;
     private SaveFileDialog saveFileDialog1;
     private OpenFileDialog openFileDialog1;
+    private Button UpBtn;
+    private Button DownBtn;
+    private TextBox cmdTB;
+    private Label label1;
+    private Button button1;
 }

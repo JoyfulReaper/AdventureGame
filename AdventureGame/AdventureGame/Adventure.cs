@@ -1,17 +1,37 @@
 ﻿using AdventureGame.GameClasses;
 
 namespace AdventureGame;
-
 /// <summary>
-/// The Adventure class contains the 'world' of the game:
-/// It creates and initializes the player and the map.
+/// ---------------------------------
+/// DarkNeon Adventure Game Framework 
+/// ---------------------------------
+/// Copyright (c) Huw Collingbourne
+/// This game is based on the adventure game framework created by Huw Collingbourne
+/// This code may be used 'as is' or modified to create new games as long
+/// as this copyright notice and website links are included.
+/// http://www.bitwisebooks.com
+/// http://www.bitwisemag.com
 /// </summary>
 /// 
+
+
+/// The Adventure class contains the 'world' of the game:
+/// It creates and initializes the player and the map.
 [Serializable]
-public class Adventure
+public partial class Adventure
 {
     private RoomList _map = default!;
     private Actor _player = default!;
+    /*
+    * ADDED: Pull/Push/Put..in
+    * TODO: Puzzles: 
+    * Drop cheese. rat eats it and knocks something off the rafter
+    * pull lever (opens door to new room)
+    * put coin in slot
+    * press button
+    * Squirrel holding coin. Drops coin when you drop acorn
+    * Drop cheese in attic to feed rat. Rat knocks off something (from rafter)
+    * */
 
     public Adventure()
     {
