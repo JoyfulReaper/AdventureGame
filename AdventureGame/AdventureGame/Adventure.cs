@@ -1,4 +1,5 @@
 ﻿using AdventureGame.GameClasses;
+using System.Xml.Linq;
 
 namespace AdventureGame;
 /// <summary>
@@ -119,33 +120,79 @@ public partial class Adventure
         destination.Add(thing);
     }
 
+    private KeyValuePair<Thing?, ThingList?> ObInContainerHere(string obName)
+    {
+        ContainerThing? container = null;
+        Thing? thing = null;
+        ThingList? thingList = null;
+
+        foreach (Thing t in _player.Location.Things)
+        {
+            if (t is ContainerThing)
+            {
+                container = (ContainerThing)t;
+                if(container.IsOpen)
+                {
+                    thingList = container.Things;
+                    thing = container.Things.GetOb(obName);
+                }
+            }
+        }
+        return new KeyValuePair<Thing?, ThingList?>(thing, thingList);
+    }
+
+    private Thing? ObHere(string obName)
+    {
+        KeyValuePair<Thing?, ThingList?> kv;
+        Thing? thing = null;
+        thing = _player.Location.Things.GetOb(obName);
+        if (thing is null)
+        {
+            thing = _player.Things.GetOb(obName);
+        }
+        if (thing is null)
+        {
+            kv = ObInContainerHere(obName);
+            thing = kv.Key;
+        }
+        return thing;
+    }
+
     public string TakeOb(string obName)
     {
-        Thing? thing = _player.Location.Things.ThisOb(obName);
-        string output;
+        KeyValuePair<Thing?, ThingList?> kv;
+        Thing thing;
+        ThingList thingList;
+        string output = string.Empty;
+        thing = _player.Location.Things.GetOb(obName);                   // See if ob is 'in room'
+        thingList = _player.Location.Things;
 
-        if(string.IsNullOrWhiteSpace(obName))
+        if (string.IsNullOrWhiteSpace(obName))
         {
-            obName = "nameless object";
+            obName = "nameless object"; // if no object specified
         }
-
-        if (thing is null)
+        if (thing == null)
+        {                                            // if not, see if it's in a container in room
+            kv = ObInContainerHere(obName);
+            thing = kv.Key;
+            thingList = kv.Value;
+        }
+        if (thing == null)
         {
             output = $"There is no {obName} here!";
         }
         else
         {
-            if (thing.CanTake)
+            if (thing.Takeable)
             {
-                TransferOb(thing, _player.Location.Things, _player.Things);
-                output = $"{thing.Name} taken!";
+                TransferOb(thing, thingList, _player.Things);
+                output = thing.Name + " taken!";
             }
             else
             {
                 output = $"You can't take the {thing.Name}!";
             }
         }
-
         return output;
     }
 
@@ -188,6 +235,157 @@ public partial class Adventure
             else
             {
                 output = thing.Description + ".";
+            }
+        }
+        return output;
+    }
+
+    private string ProcessCommand(List<WordAndType> command)
+    {
+        string output = String.Empty;
+        if(command.Count == 0)
+        {
+            output = "You must write a command!";
+        }
+        else if (command.Count > 4)
+        {
+            output = "That command is too long!";
+        }
+        else
+        {
+            output = "About to process command";
+            switch (command.Count)
+            {
+                case 1:
+                    output = ProcessVerb(command);
+                    break;
+                case 2:
+                    output = ProcessVerbNoun(command);
+                    break;
+                case 3:
+                    output = ProcessVerbPrepositionNoun(command);
+                    break;
+                case 4:
+                    output = ProcessVerbNounPrepositionNoun(command);
+                    break;
+                default:
+                    output = "Unable to process command";
+                    break;
+            }
+        }
+    }
+
+    private string ParseCommand(List<string> wordList)
+    {
+        List<WordAndType> command = new List<WordAndType>();
+        WT wordType;
+        string errMsg = string.Empty;
+        string output = string.Empty;
+
+        foreach (var k in wordList)
+        {
+            // Check to see if Key, s,
+            // exists, If not, set WordType to ERROR
+            if(vocab.ContainsKey(k))
+            {
+                wordType = vocab[k];
+                if (wordType == WT.ARTICLE)
+                {
+
+                }
+                else
+                {
+                    command.Add(new WordAndType(k, wordType));
+                }
+            }
+            else
+            {
+                command.Add(new WordAndType(k, WT.ERROR));
+                errMsg = $"Sorry, I don't understand '{k}'";
+            }
+        }
+        if (!string.IsNullOrEmpty(errMsg))
+        {
+            output = errMsg;
+        }
+        else
+        {
+            output = ProcessCommand(command);
+        }
+        return output;
+    }
+
+    public string RunCommand(string inputStr)
+    {
+        char[] delims = { ' ', '.' };
+        List<string> strList;
+        string output = string.Empty;
+
+        string lowStr = inputStr.Trim().ToLower();
+        if (string.IsNullOrWhiteSpace(lowStr))
+        {
+            output = "You must enter a command";
+        }
+        else
+        {
+            strList = new List<string>(inputStr.Split(delims, StringSplitOptions.RemoveEmptyEntries));
+            output = ParseCommand(strList);
+        }
+        return output;
+    }
+
+    public string PutObInContainer(string obName, string containerName)
+    {
+        string output = string.Empty;
+        Thing thing = _player.Things.GetOb(obName);
+        Thing container = ObHere(containerName);
+
+        if (thing is null)
+        {
+            output = $"You haven't got the {obName}!";
+        }
+        else if (container == null)
+        {
+            output = $"There is no {containerName} here!";
+        }
+        else if (!(container is ContainerThing))
+        {
+            output = $"You can't put the {obName} into the {containerName}!";
+        }
+        else if (!((ContainerThing)container).IsOpen)
+        {
+            output = $"You can't put the {obName} into a closed {containerName}!";
+        }
+        else
+        {
+            TransferOb(thing, _player.Things, ((ContainerThing)container).Things);
+            output = $"You put the {obName} into the {containerName}.";
+        }
+        return output;
+    }
+
+    public string PullOb(string obName)
+    {
+        Thing thing;
+        string output;
+        thing = ObHere(obName);
+        if(thing is null)
+        {
+            output = $"There is no {obName} here!";
+        }
+        else
+        {
+            output = PullSpecial(thing);
+            if (string.IsNullOrEmpty(output))
+            {
+                if(thing.Movable)
+                {
+                    output = $"The {obName} moves slightly with you pull it.";
+                }
+                else
+                {
+                    output = $"You try to pull the {obName} but nothing happens.";
+                }
             }
         }
         return output;

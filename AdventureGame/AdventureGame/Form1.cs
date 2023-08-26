@@ -154,4 +154,15 @@ public partial class Form1 : Form
     {
         InitGame();
     }
+
+    private void cmdTB_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter)
+        {
+            WriteLineToTextBox(_adv.RunCommand(cmdTB.Text));
+            cmdTB.Clear();
+            e.Handled = true;
+            e.SuppressKeyPress = true;
+        }
+    }
 }

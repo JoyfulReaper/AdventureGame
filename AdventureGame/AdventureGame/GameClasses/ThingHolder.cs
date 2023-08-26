@@ -5,14 +5,15 @@ public class ThingHolder : Thing
 {
     private ThingList _things = new ThingList();
 
+    // for objects that can't be opened: openable=false, open=true
     public ThingHolder(string name, string description, ThingList thinglist) 
         : base(name, description)
     {
         _things = thinglist;
     }
 
-    public ThingHolder(string name, string description, bool canTake, ThingList thingList)
-            : base(name, description, canTake)
+    public ThingHolder(string name, string description, bool isTakable, bool isMovable, ThingList thingList)
+            : base(name, description, isTakable, isMovable)
     {
         _things = thingList;
     }

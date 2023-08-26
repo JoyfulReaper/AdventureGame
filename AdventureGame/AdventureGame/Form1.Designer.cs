@@ -260,6 +260,7 @@ partial class Form1
         cmdTB.Name = "cmdTB";
         cmdTB.Size = new Size(280, 25);
         cmdTB.TabIndex = 11;
+        cmdTB.KeyDown += cmdTB_KeyDown;
         // 
         // label1
         // 
