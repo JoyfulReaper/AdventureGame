@@ -28,7 +28,6 @@ partial class Form1
     /// </summary>
     private void InitializeComponent()
     {
-        components = new System.ComponentModel.Container();
         outputTB = new TextBox();
         EBtn = new Button();
         NBtn = new Button();
@@ -41,7 +40,17 @@ partial class Form1
         inputTB = new TextBox();
         DropBtn = new Button();
         TakeBtn = new Button();
+        menuStrip1 = new MenuStrip();
+        fileToolStripMenuItem = new ToolStripMenuItem();
+        lToolStripMenuItem = new ToolStripMenuItem();
+        saveToolStripMenuItem = new ToolStripMenuItem();
+        restartToolStripMenuItem = new ToolStripMenuItem();
+        toolStripSeparator1 = new ToolStripSeparator();
+        exitToolStripMenuItem = new ToolStripMenuItem();
+        saveFileDialog1 = new SaveFileDialog();
+        openFileDialog1 = new OpenFileDialog();
         groupBox1.SuspendLayout();
+        menuStrip1.SuspendLayout();
         SuspendLayout();
         // 
         // outputTB
@@ -165,6 +174,59 @@ partial class Form1
         TakeBtn.UseVisualStyleBackColor = true;
         TakeBtn.Click += TakeBtn_Click;
         // 
+        // menuStrip1
+        // 
+        menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
+        menuStrip1.Location = new Point(0, 0);
+        menuStrip1.Name = "menuStrip1";
+        menuStrip1.Size = new Size(870, 25);
+        menuStrip1.TabIndex = 8;
+        menuStrip1.Text = "menuStrip1";
+        // 
+        // fileToolStripMenuItem
+        // 
+        fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { lToolStripMenuItem, saveToolStripMenuItem, restartToolStripMenuItem, toolStripSeparator1, exitToolStripMenuItem });
+        fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+        fileToolStripMenuItem.Size = new Size(39, 21);
+        fileToolStripMenuItem.Text = "&File";
+        // 
+        // lToolStripMenuItem
+        // 
+        lToolStripMenuItem.Name = "lToolStripMenuItem";
+        lToolStripMenuItem.Size = new Size(180, 22);
+        lToolStripMenuItem.Text = "&Load";
+        lToolStripMenuItem.Click += lToolStripMenuItem_Click;
+        // 
+        // saveToolStripMenuItem
+        // 
+        saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+        saveToolStripMenuItem.Size = new Size(180, 22);
+        saveToolStripMenuItem.Text = "&Save";
+        saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
+        // 
+        // restartToolStripMenuItem
+        // 
+        restartToolStripMenuItem.Name = "restartToolStripMenuItem";
+        restartToolStripMenuItem.Size = new Size(180, 22);
+        restartToolStripMenuItem.Text = "&Restart";
+        restartToolStripMenuItem.Click += restartToolStripMenuItem_Click;
+        // 
+        // toolStripSeparator1
+        // 
+        toolStripSeparator1.Name = "toolStripSeparator1";
+        toolStripSeparator1.Size = new Size(177, 6);
+        // 
+        // exitToolStripMenuItem
+        // 
+        exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+        exitToolStripMenuItem.Size = new Size(180, 22);
+        exitToolStripMenuItem.Text = "E&xit";
+        exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
+        // 
+        // openFileDialog1
+        // 
+        openFileDialog1.FileName = "openFileDialog1";
+        // 
         // Form1
         // 
         AutoScaleDimensions = new SizeF(7F, 17F);
@@ -178,10 +240,14 @@ partial class Form1
         Controls.Add(NBtn);
         Controls.Add(EBtn);
         Controls.Add(outputTB);
+        Controls.Add(menuStrip1);
+        MainMenuStrip = menuStrip1;
         Name = "Form1";
         Text = "Dark Neon City...";
         groupBox1.ResumeLayout(false);
         groupBox1.PerformLayout();
+        menuStrip1.ResumeLayout(false);
+        menuStrip1.PerformLayout();
         ResumeLayout(false);
         PerformLayout();
     }
@@ -200,4 +266,13 @@ partial class Form1
     private Button DropBtn;
     private Button TakeBtn;
     private Button LookAtBtn;
+    private MenuStrip menuStrip1;
+    private ToolStripMenuItem fileToolStripMenuItem;
+    private ToolStripMenuItem lToolStripMenuItem;
+    private ToolStripMenuItem saveToolStripMenuItem;
+    private ToolStripMenuItem restartToolStripMenuItem;
+    private ToolStripSeparator toolStripSeparator1;
+    private ToolStripMenuItem exitToolStripMenuItem;
+    private SaveFileDialog saveFileDialog1;
+    private OpenFileDialog openFileDialog1;
 }

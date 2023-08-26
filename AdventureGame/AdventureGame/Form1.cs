@@ -1,4 +1,5 @@
 using AdventureGame.GameClasses;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace AdventureGame;
 
@@ -107,8 +108,50 @@ public partial class Form1 : Form
         }
     }
 
-    private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+    private void exitToolStripMenuItem_Click(object sender, EventArgs e)
     {
+        Close();
+    }
 
+    private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        Stream stream;
+        BinaryFormatter binaryFormatter;
+        if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+        {
+            if ((stream = saveFileDialog1.OpenFile()) != null)
+            {
+                binaryFormatter = new BinaryFormatter();
+#pragma warning disable SYSLIB0011
+                binaryFormatter.Serialize(stream, _adv); //TODO: https://learn.microsoft.com/en-us/dotnet/standard/serialization/binaryformatter-security-guide
+#pragma warning restore SYSLIB0011
+                stream.Close();
+                WriteLineToTextBox("Saved");
+            }
+        }
+    }
+
+    private void lToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        Stream stream;
+        BinaryFormatter binaryFormatter;
+        if (openFileDialog1.ShowDialog() == DialogResult.OK)
+        {
+            if ((stream = openFileDialog1.OpenFile()) != null)
+            {
+                binaryFormatter = new BinaryFormatter();
+#pragma warning disable SYSLIB0011
+                _adv = (Adventure)binaryFormatter.Deserialize(stream); //TODO: https://learn.microsoft.com/en-us/dotnet/standard/serialization/binaryformatter-security-guide
+#pragma warning restore SYSLIB0011
+                stream.Close();
+            }
+        }
+        outputTB.Clear();
+        ShowLocation();
+    }
+
+    private void restartToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        InitGame();
     }
 }

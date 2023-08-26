@@ -1,4 +1,6 @@
 ﻿namespace AdventureGame.GameClasses;
+
+[Serializable]
 public class Room : ThingHolder
 {
     public Room(string name, string description, Rm n, Rm s, Rm w, Rm e, ThingList thingList)

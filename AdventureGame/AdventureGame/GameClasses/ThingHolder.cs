@@ -1,5 +1,6 @@
 ﻿namespace AdventureGame.GameClasses;
 
+[Serializable]
 public class ThingHolder : Thing
 {
     private ThingList _things = new ThingList();
@@ -21,15 +22,13 @@ public class ThingHolder : Thing
         set { _things = value; }
     }
 
-    public void AddThing(Thing thing)
-    {
+    public void AddThing(Thing thing) =>
         _things.Add(thing);
-    }
+    
 
-    public void AddThings(ThingList thinglist)
-    {
+    public void AddThings(ThingList thinglist) =>
         _things.AddRange(thinglist);
-    }
+    
 
     public override string Describe() =>
         $"Name: {Name}, Description: {Description} which contains -> {_things.Describe()}";

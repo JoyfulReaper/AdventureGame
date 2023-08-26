@@ -1,6 +1,15 @@
-﻿namespace AdventureGame.GameClasses;
+﻿using System.Runtime.Serialization;
+
+namespace AdventureGame.GameClasses;
+
+[Serializable]
 public class RoomList : Dictionary<Rm,  Room>
 {
+    protected RoomList(SerializationInfo info, StreamingContext context)
+        : base(info, context) { }
+
+    public RoomList() { }
+
     public Room RoomAt(Rm id)
     {
         return this[id];
@@ -8,19 +17,19 @@ public class RoomList : Dictionary<Rm,  Room>
 
     public string Describe()
     {
-        string s = string.Empty;
+        string output = string.Empty;
         if (Count == 0)
         {
-            s = "Nothing in RoomList.";
+            output = "Nothing in RoomList.";
         }
         else
         {
             foreach (KeyValuePair<Rm, Room> kvp in this)
             {
-                s += kvp.Value.Describe() + Environment.NewLine;
+                output += kvp.Value.Describe() + Environment.NewLine;
             }
         }
 
-        return s;
+        return output;
     }
 }

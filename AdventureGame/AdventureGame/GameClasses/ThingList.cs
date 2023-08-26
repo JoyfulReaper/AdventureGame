@@ -1,24 +1,25 @@
 ﻿
 namespace AdventureGame.GameClasses;
 
+[Serializable]
 public class ThingList : List<Thing>
 {
     public string Describe()
     {
-        string s = "";
+        string output = "";
 
         if (this.Count == 0)
         {
-            s = $"Nothing.{Environment.NewLine}";
+            output = $"Nothing.{Environment.NewLine}";
         }
         else
         {
             foreach (Thing thing in this)
             {
-                s += thing.Name + ". " + thing.Description + "; ";
+                output += thing.Name + ". " + thing.Description + "; ";
             }
         }
-        return s;
+        return output;
     }
 
     public Thing? ThisOb(string name) => 

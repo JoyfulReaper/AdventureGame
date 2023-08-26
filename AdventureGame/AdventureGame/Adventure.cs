@@ -7,6 +7,7 @@ namespace AdventureGame;
 /// It creates and initializes the player and the map.
 /// </summary>
 /// 
+[Serializable]
 public class Adventure
 {
     private RoomList _map = default!;
@@ -21,20 +22,20 @@ public class Adventure
             *  Cave  -----  Dungeon  
             * */
 
-        ThingList trollRoomList = new ThingList();
-        ThingList forestList = new ThingList();
-
-        trollRoomList.Add(new Thing("Carrot", "It's a very crunchy carrot"));
-
-        forestList.Add(new Thing("Sausage", "It is a plump pork sausage"));
-        forestList.Add(new Thing("Tree", "It is a gigantic oak tree", false));
-
         _map = new RoomList {
-            { Rm.TrollRoom, new Room("Troll Room", "a dank, dark room that smells of troll", Rm.NOEXIT, Rm.Cave, Rm.NOEXIT, Rm.Forest, trollRoomList) },
-            { Rm.Forest, new Room("Forest", "a light, airy forest shimmering with sunlight", Rm.NOEXIT, Rm.NOEXIT, Rm.TrollRoom, Rm.NOEXIT, forestList) },
-            { Rm.Cave, new Room("Cave", "a vast cave with walls covered by luminous moss", Rm.TrollRoom, Rm.NOEXIT, Rm.NOEXIT, Rm.Dungeon, new ThingList()) },
-            { Rm.Dungeon, new Room("Dungeon", "a gloomy dungeon. Rats scurry across its floor", Rm.NOEXIT, Rm.NOEXIT, Rm.Cave, Rm.NOEXIT, new ThingList()) }
-        };
+                /*                                                                                 N          S          W          E          */
+                { Rm.TrollRoom, new Room("Troll Room", "a dank, dark room that smells of troll", Rm.NOEXIT, Rm.Cave, Rm.NOEXIT, Rm.Forest,
+                    new ThingList {
+                        new Thing("carrot", "It is a very crunchy carrot")
+                }) },
+                { Rm.Forest, new Room("Forest", "a light, airy forest shimmering with sunlight", Rm.NOEXIT, Rm.NOEXIT, Rm.TrollRoom, Rm.NOEXIT,
+                    new ThingList {
+                        new Thing("sausage", "It is a plump pork sausage"),
+                        new Thing("tree", "It is a gigantic oak tree", false)
+                    }) },
+                { Rm.Cave, new Room("Cave", "a vast cave with walls covered by luminous moss", Rm.TrollRoom, Rm.NOEXIT, Rm.NOEXIT, Rm.Dungeon, new ThingList()) },
+                { Rm.Dungeon, new Room("Dungeon", "a gloomy dungeon. Rats scurry across its floor", Rm.NOEXIT, Rm.NOEXIT, Rm.Cave, Rm.NOEXIT, new ThingList()) }
+            };
 
         _player = new Actor("You", "The Player", _map.RoomAt(Rm.TrollRoom), new ThingList());
     }
