@@ -9,16 +9,47 @@
 
 public enum Rm
 {
-    TrollRoom,
-    Forest,
-    Cave,
-    Dungeon,
+    GoreStreet,
+    Alleyway,
+    DeadEnd,
+    OpiumTerrace,
+    DaggerStreet,
+    RipperMews,
+    GardenN,
+    GardenS,
+    OakTree,
+    VegetableGarden,
+    PalmHouse,
+    Balcony,
+    DesertedShop,
+    Basement,
+    Attic,
+    Bedroom,
+    Kitchen,
     NOEXIT
+}
+
+public enum ObID
+{
+    Leaflet,
+    SignGoreStreet,
+    SignOpiumTerrace,
+    Bone,
+    Coin,
+    Knife,
+    Lamp,
+    Acorn,
+    Bed,
+    Key,
+    Bin,
+    Chest
 }
 
 public enum Dir {
     NORTH,
     SOUTH,
     EAST,
-    WEST
+    WEST,
+    UP,
+    DOWN
 }

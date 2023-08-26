@@ -5,50 +5,58 @@ namespace AdventureGame;
 
 public partial class Form1 : Form
 {
-    private Adventure _adv = default!;
+    private Adventure _advGameEngine = default!;
 
     public Form1()
     {
         InitializeComponent();
         InitGame();
-        StartGame();
     }
 
     private void InitGame()
     {
-        _adv = new Adventure();
+        _advGameEngine = new Adventure();
+        StartGame();
     }
 
     private void StartGame()
     {
-        outputTB.Text = $"Welcome to the Great Adventure!{Environment.NewLine}You are in the {_adv.Player.Location.Name}. It is {_adv.Player.Location.Description}{Environment.NewLine}";
-        outputTB.AppendText($"Where do you want to go now?{Environment.NewLine}");
-        outputTB.AppendText($"Click a direction button: N, S, W or E.{Environment.NewLine}");
+        WriteLineToTextBox($"Welcome to the Dark Neon City --- a futuristic Victorian adventure game");
+        WriteLineToTextBox(_advGameEngine.Look());
+        WriteLineToTextBox("Where do you want to go now?");
+        WriteLineToTextBox("Click a direction button: N, S, W or E or enter a command");
     }
 
     private void WriteToTextBox(string s)
     {
+        // utility method to append text to textbox
         outputTB.AppendText(s);
     }
 
     private void WriteLineToTextBox(string s)
     {
+        // simple utility method that appends carriage-return/linefeed before caling Wr()
         WriteToTextBox(s + Environment.NewLine);
+    }
+
+    private void ShowInventory()
+    {
+        WriteLineToTextBox($"You have {_advGameEngine.Player.Things.Describe()}");
+    }
+
+    private void LookBtn_Click(object sender, EventArgs e)
+    {
+        WriteLineToTextBox(_advGameEngine.Look());
     }
 
     private void MovePlayer(Dir direction)
     {
-        outputTB.Text = _adv.MovePlayerTo(direction);
+        WriteLineToTextBox(_advGameEngine.MovePlayerTo(direction));
     }
 
     private void NBtn_Click(object sender, EventArgs e)
     {
         MovePlayer(Dir.NORTH);
-    }
-
-    private void SBtn_Click(object sender, EventArgs e)
-    {
-        MovePlayer(Dir.SOUTH);
     }
 
     private void WBtn_Click(object sender, EventArgs e)
@@ -61,31 +69,29 @@ public partial class Form1 : Form
         MovePlayer(Dir.EAST);
     }
 
-    private void ShowLocation()
+    private void SBtn_Click(object sender, EventArgs e)
     {
-        WriteToTextBox(_adv.Player.Name);
-        WriteToTextBox(" are currently in this room: ");
-        WriteLineToTextBox(_adv.Player.Location.Describe());
+        MovePlayer(Dir.SOUTH);
     }
 
-    private void LookBtn_Click(object sender, EventArgs e)
+    private void UpBtn_Click(object sender, EventArgs e)
     {
-        ShowLocation();
+        MovePlayer(Dir.UP);
+    }
+
+    private void DownBtn_Click(object sender, EventArgs e)
+    {
+        MovePlayer(Dir.DOWN);
     }
 
     private void TakeBtn_Click(object sender, EventArgs e)
     {
-        WriteLineToTextBox(_adv.TakeOb(inputTB.Text));
+        WriteLineToTextBox(_advGameEngine.TakeOb(inputTB.Text));
     }
 
     private void DropBtn_Click(object sender, EventArgs e)
     {
-        WriteLineToTextBox(_adv.DropOb(inputTB.Text));
-    }
-
-    private void ShowInventory()
-    {
-        WriteLineToTextBox($"You have {_adv.Player.Things.Describe()}");
+        WriteLineToTextBox(_advGameEngine.DropOb(inputTB.Text));
     }
 
     private void InventoryBtn_Click(object sender, EventArgs e)
@@ -95,17 +101,7 @@ public partial class Form1 : Form
 
     private void LookAtBtn_Click(object sender, EventArgs e)
     {
-        WriteLineToTextBox(_adv.LookAtOb(inputTB.Text));
-    }
-
-    private void inputTB_KeyDown(object sender, KeyEventArgs e)
-    {
-        if (e.KeyCode == Keys.Enter)
-        {
-            WriteLineToTextBox(_adv.LookAtOb(inputTB.Text));
-            e.Handled = true;
-            e.SuppressKeyPress = true;
-        }
+        WriteLineToTextBox(_advGameEngine.LookAtOb(inputTB.Text));
     }
 
     private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -123,7 +119,7 @@ public partial class Form1 : Form
             {
                 binaryFormatter = new BinaryFormatter();
 #pragma warning disable SYSLIB0011
-                binaryFormatter.Serialize(stream, _adv); //TODO: https://learn.microsoft.com/en-us/dotnet/standard/serialization/binaryformatter-security-guide
+                binaryFormatter.Serialize(stream, _advGameEngine); //TODO: https://learn.microsoft.com/en-us/dotnet/standard/serialization/binaryformatter-security-guide
 #pragma warning restore SYSLIB0011
                 stream.Close();
                 WriteLineToTextBox("Saved");
@@ -141,13 +137,13 @@ public partial class Form1 : Form
             {
                 binaryFormatter = new BinaryFormatter();
 #pragma warning disable SYSLIB0011
-                _adv = (Adventure)binaryFormatter.Deserialize(stream); //TODO: https://learn.microsoft.com/en-us/dotnet/standard/serialization/binaryformatter-security-guide
+                _advGameEngine = (Adventure)binaryFormatter.Deserialize(stream); //TODO: https://learn.microsoft.com/en-us/dotnet/standard/serialization/binaryformatter-security-guide
 #pragma warning restore SYSLIB0011
                 stream.Close();
             }
         }
         outputTB.Clear();
-        ShowLocation();
+        _advGameEngine.Look();
     }
 
     private void restartToolStripMenuItem_Click(object sender, EventArgs e)
@@ -155,14 +151,31 @@ public partial class Form1 : Form
         InitGame();
     }
 
+
+    private void inputTB_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter)
+        {
+            WriteLineToTextBox(_advGameEngine.LookAtOb(inputTB.Text));
+            e.Handled = true;
+            e.SuppressKeyPress = true;
+        }
+    }
+
+
     private void cmdTB_KeyDown(object sender, KeyEventArgs e)
     {
         if (e.KeyCode == Keys.Enter)
         {
-            WriteLineToTextBox(_adv.RunCommand(cmdTB.Text));
+            WriteLineToTextBox(_advGameEngine.RunCommand(cmdTB.Text));
             cmdTB.Clear();
             e.Handled = true;
             e.SuppressKeyPress = true;
         }
+    }
+
+    private void cmdBtn_Click(object sender, EventArgs e)
+    {
+        WriteLineToTextBox(_advGameEngine.RunCommand(cmdTB.Text));
     }
 }

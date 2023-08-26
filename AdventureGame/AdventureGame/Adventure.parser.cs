@@ -97,6 +97,38 @@ partial class Adventure
                     break;
             }
         }
+
+        return output;
+    }
+
+    private string ProcessVerbPrepositionNoun(List<WordAndType> command)
+    {
+        // "look at" is the only implemented command of this type
+        WordAndType wt1 = command[0];
+        WordAndType wt2 = command[1];
+        WordAndType wt3 = command[2];
+        string output = String.Empty;
+        if ((wt1.Type != WT.VERB) || (wt2.Type != WT.PREPOSITION))
+        {
+            output = $"Can't do this because I don't understand '{wt1.Word} {wt2.Word}' !";
+        }
+        else if (wt3.Type != WT.NOUN)
+        {
+            output = $"Can't do this because '{wt3.Word}' is not an object!\r\n";
+        }
+        else
+        {
+            switch (wt1.Word + wt2.Word)
+            {
+                case "lookat":
+                    output = LookAtOb(wt3.Word);
+                    break;
+                default:
+                    output = $"I don't know how to {wt1.Word} {wt2.Word} a {wt3.Word}!";
+                    break;
+            }
+        }
+        return output;
     }
 
     private string ProcessVerbNoun(List<WordAndType> command)
@@ -139,6 +171,142 @@ partial class Adventure
                     output = $"I don't know how to {wt1.Word} a {wt2.Word}!";
                     break;
             }
+        }
+        return output;
+    }
+
+    private string ProcessVerb(List<WordAndType> command)
+    {
+        WordAndType wt1 = command[0];
+        string ouput = "";
+        if (wt1.Type != WT.VERB)
+        {
+            ouput = $"Can't do this because '{wt1.Word}' is not a command!";
+        }
+        else
+        {
+            switch (wt1.Word)
+            {
+                case "look":
+                    ouput = Look();
+                    break;
+                case "n":
+                    ouput = MovePlayerTo(Dir.NORTH);
+                    break;
+                case "s":
+                    ouput = MovePlayerTo(Dir.SOUTH);
+                    break;
+                case "w":
+                    ouput = MovePlayerTo(Dir.WEST);
+                    break;
+                case "e":
+                    ouput = MovePlayerTo(Dir.EAST);
+                    break;
+                case "up":
+                    ouput = MovePlayerTo(Dir.UP);
+                    break;
+                case "down":
+                    ouput = MovePlayerTo(Dir.DOWN);
+                    break;
+                default:
+                    ouput = $"Sorry, I can't {wt1.Word}!";
+                    break;
+            }
+        }
+        return ouput;
+    }
+
+    private string ProcessCommand(List<WordAndType> command)
+    {
+        string output = String.Empty;
+        if (command.Count == 0)
+        {
+            output = "You must write a command!";
+        }
+        else if (command.Count > 4)
+        {
+            output = "That command is too long!";
+        }
+        else
+        {
+            output = "About to process command";
+            switch (command.Count)
+            {
+                case 1:
+                    output = ProcessVerb(command);
+                    break;
+                case 2:
+                    output = ProcessVerbNoun(command);
+                    break;
+                case 3:
+                    output = ProcessVerbPrepositionNoun(command);
+                    break;
+                case 4:
+                    output = ProcessVerbNounPrepositionNoun(command);
+                    break;
+                default:
+                    output = "Unable to process command";
+                    break;
+            }
+        }
+        return output;
+    }
+
+    private string ParseCommand(List<string> wordList)
+    {
+        List<WordAndType> command = new List<WordAndType>();
+        WT wordType;
+        string errMsg = string.Empty;
+        string output = string.Empty;
+
+        foreach (var k in wordList)
+        {
+            // Check to see if Key, s,
+            // exists, If not, set WordType to ERROR
+            if (vocab.ContainsKey(k))
+            {
+                wordType = vocab[k];
+                if (wordType == WT.ARTICLE)
+                {
+
+                }
+                else
+                {
+                    command.Add(new WordAndType(k, wordType));
+                }
+            }
+            else
+            {
+                command.Add(new WordAndType(k, WT.ERROR));
+                errMsg = $"Sorry, I don't understand '{k}'";
+            }
+        }
+        if (!string.IsNullOrEmpty(errMsg))
+        {
+            output = errMsg;
+        }
+        else
+        {
+            output = ProcessCommand(command);
+        }
+        return output;
+    }
+
+    public string RunCommand(string inputStr)
+    {
+        char[] delims = { ' ', '.' };
+        List<string> strList;
+        string output = string.Empty;
+
+        string lowStr = inputStr.Trim().ToLower();
+        if (string.IsNullOrWhiteSpace(lowStr))
+        {
+            output = "You must enter a command";
+        }
+        else
+        {
+            strList = new List<string>(inputStr.Split(delims, StringSplitOptions.RemoveEmptyEntries));
+            output = ParseCommand(strList);
         }
         return output;
     }

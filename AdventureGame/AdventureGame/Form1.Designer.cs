@@ -53,7 +53,7 @@ partial class Form1
         DownBtn = new Button();
         cmdTB = new TextBox();
         label1 = new Label();
-        button1 = new Button();
+        cmdBtn = new Button();
         groupBox1.SuspendLayout();
         menuStrip1.SuspendLayout();
         SuspendLayout();
@@ -243,6 +243,7 @@ partial class Form1
         UpBtn.TabIndex = 9;
         UpBtn.Text = "Up";
         UpBtn.UseVisualStyleBackColor = true;
+        UpBtn.Click += UpBtn_Click;
         // 
         // DownBtn
         // 
@@ -253,6 +254,7 @@ partial class Form1
         DownBtn.TabIndex = 10;
         DownBtn.Text = "Down";
         DownBtn.UseVisualStyleBackColor = true;
+        DownBtn.Click += DownBtn_Click;
         // 
         // cmdTB
         // 
@@ -271,23 +273,24 @@ partial class Form1
         label1.TabIndex = 12;
         label1.Text = "Enter a command:";
         // 
-        // button1
+        // cmdBtn
         // 
-        button1.BackColor = SystemColors.ControlLight;
-        button1.Font = new Font("Wingdings 2", 12F, FontStyle.Regular, GraphicsUnit.Point);
-        button1.Location = new Point(425, 462);
-        button1.Name = "button1";
-        button1.Size = new Size(26, 23);
-        button1.TabIndex = 13;
-        button1.Text = "P";
-        button1.UseVisualStyleBackColor = true;
+        cmdBtn.BackColor = SystemColors.ControlLight;
+        cmdBtn.Font = new Font("Wingdings 2", 12F, FontStyle.Regular, GraphicsUnit.Point);
+        cmdBtn.Location = new Point(425, 462);
+        cmdBtn.Name = "cmdBtn";
+        cmdBtn.Size = new Size(26, 23);
+        cmdBtn.TabIndex = 13;
+        cmdBtn.Text = "P";
+        cmdBtn.UseVisualStyleBackColor = true;
+        cmdBtn.Click += cmdBtn_Click;
         // 
         // Form1
         // 
         AutoScaleDimensions = new SizeF(7F, 17F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(712, 584);
-        Controls.Add(button1);
+        Controls.Add(cmdBtn);
         Controls.Add(label1);
         Controls.Add(cmdTB);
         Controls.Add(DownBtn);
@@ -339,5 +342,5 @@ partial class Form1
     private Button DownBtn;
     private TextBox cmdTB;
     private Label label1;
-    private Button button1;
+    private Button cmdBtn;
 }
