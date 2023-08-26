@@ -36,7 +36,7 @@ public class Room : ThingHolder
         set => _w = value;
     }
 
-    public string Describe()
+    public override string Describe()
     {
         return $"[{Name}] This is {Description}" + "\r\nHere there is: " + Things.Describe();
     }

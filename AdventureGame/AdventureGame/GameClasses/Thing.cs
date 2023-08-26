@@ -10,6 +10,7 @@ public class Thing
     {
         _description = description;
         _name = name;
+        _canTake = true;
     }
 
     public Thing(string name, string description, bool canTake)
@@ -30,7 +31,7 @@ public class Thing
     }
 
     public bool CanTake {
-        get => _cantake;
-        set => _cantake = value;
+        get => _canTake;
+        set => _canTake = value;
     }
 }

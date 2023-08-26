@@ -2,6 +2,11 @@
 
 namespace AdventureGame;
 
+/// <summary>
+/// The Adventure class contains the 'world' of the game:
+/// It creates and initializes the player and the map.
+/// </summary>
+/// 
 public class Adventure
 {
     private RoomList _map = default!;
@@ -19,7 +24,7 @@ public class Adventure
         ThingList trollRoomList = new ThingList();
         ThingList forestList = new ThingList();
 
-        trollRoomList.Add(new Thing("Carrot", "It's a very crunchy carror"));
+        trollRoomList.Add(new Thing("Carrot", "It's a very crunchy carrot"));
 
         forestList.Add(new Thing("Sausage", "It is a plump pork sausage"));
         forestList.Add(new Thing("Tree", "It is a gigantic oak tree", false));
@@ -97,7 +102,7 @@ public class Adventure
     public string TakeOb(string obName)
     {
         Thing? thing = _player.Location.Things.ThisOb(obName);
-        string output = string.Empty;
+        string output;
 
         if(string.IsNullOrWhiteSpace(obName))
         {
@@ -122,5 +127,21 @@ public class Adventure
         }
 
         return output;
+    }
+
+    public string DropOb(string obName)
+    {
+        Thing? thing = _player.Things.ThisOb(obName);
+        string s;
+        if (thing is null)
+        {
+            s = "You haven't got one!";
+        }
+        else
+        {
+            TransferOb(thing, _player.Things, _player.Location.Things);
+            s = thing.Name + " dropped!";
+        }
+        return s;
     }
 }

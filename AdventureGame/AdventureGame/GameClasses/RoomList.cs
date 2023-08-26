@@ -8,7 +8,7 @@ public class RoomList : Dictionary<Rm,  Room>
 
     public string Describe()
     {
-        string s = "";
+        string s = string.Empty;
         if (Count == 0)
         {
             s = "Nothing in RoomList.";

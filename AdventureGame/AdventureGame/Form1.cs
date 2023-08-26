@@ -25,14 +25,14 @@ public partial class Form1 : Form
         outputTB.AppendText($"Click a direction button: N, S, W or E.{Environment.NewLine}");
     }
 
-    private void Wr(string s)
+    private void WriteToTextBox(string s)
     {
         outputTB.AppendText(s);
     }
 
-    private void WrLn(string s)
+    private void WriteLineToTextBox(string s)
     {
-        Wr(s + Environment.NewLine);
+        WriteToTextBox(s + Environment.NewLine);
     }
 
     private void MovePlayer(Dir direction)
@@ -60,13 +60,35 @@ public partial class Form1 : Form
         MovePlayer(Dir.EAST);
     }
 
+    private void ShowLocation()
+    {
+        WriteToTextBox(_adv.Player.Name);
+        WriteToTextBox(" are currently in this room: ");
+        WriteLineToTextBox(_adv.Player.Location.Describe());
+    }
+
     private void LookBtn_Click(object sender, EventArgs e)
     {
-        outputTB.Text = $"You are in the {_adv.Player.Location.Name}. It is {_adv.Player.Location.Description}{Environment.NewLine}";
+        ShowLocation();
     }
 
     private void TakeBtn_Click(object sender, EventArgs e)
     {
-        WrLn(_adv.TakeOb(inputTB.Text));
+        WriteLineToTextBox(_adv.TakeOb(inputTB.Text));
+    }
+
+    private void DropBtn_Click(object sender, EventArgs e)
+    {
+        WriteLineToTextBox(_adv.DropOb(inputTB.Text));
+    }
+
+    private void ShowInventory()
+    {
+        WriteLineToTextBox($"You have {_adv.Player.Things.Describe()}");
+    }
+
+    private void InventoryBtn_Click(object sender, EventArgs e)
+    {
+        ShowInventory();
     }
 }

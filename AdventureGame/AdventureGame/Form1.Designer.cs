@@ -109,6 +109,7 @@ partial class Form1
         InventoryBtn.TabIndex = 7;
         InventoryBtn.Text = "Inventory";
         InventoryBtn.UseVisualStyleBackColor = true;
+        InventoryBtn.Click += InventoryBtn_Click;
         // 
         // groupBox1
         // 
@@ -137,6 +138,7 @@ partial class Form1
         DropBtn.TabIndex = 1;
         DropBtn.Text = "Drop";
         DropBtn.UseVisualStyleBackColor = true;
+        DropBtn.Click += DropBtn_Click;
         // 
         // TakeBtn
         // 
