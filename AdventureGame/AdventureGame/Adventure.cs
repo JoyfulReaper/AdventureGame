@@ -289,6 +289,7 @@ public partial class Adventure
         return output;
     }
 
+    // --- Public methods
     public string MovePlayerTo(Dir direction)
     {
         string output;

@@ -6,20 +6,20 @@ public class ThingList : List<Thing>
 {
     public string Describe()
     {
-        string output = "";
-
-        if (this.Count == 0)
+        // return a string showing things each on a new line
+        string s = "";
+        if (this.Count > 0)
         {
-            output = $"Nothing.{Environment.NewLine}";
+            foreach (Thing t in this)
+            {
+                s = s + t.Name + "\r\n";
+            }
         }
         else
         {
-            foreach (Thing thing in this)
-            {
-                output += thing.Name + ". " + thing.Description + "; ";
-            }
+            s = "";
         }
-        return output;
+        return s;
     }
 
     public Thing? GetOb(string name)

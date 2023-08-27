@@ -35,12 +35,12 @@ public partial class Form1 : Form
 
     private void WriteLineToTextBox(string s)
     {
-        // simple utility method that appends carriage-return/linefeed before caling Wr()
+        // simple utility method that appends carriage-return/linefeed before caling WriteToTextBox()
         WriteToTextBox(s + Environment.NewLine);
     }
 
     private void ShowInventory()
-    {
+    {        
         WriteLineToTextBox($"You have {_advGameEngine.Player.Things.Describe()}");
     }
 

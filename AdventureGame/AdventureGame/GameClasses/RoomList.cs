@@ -19,19 +19,18 @@ public class RoomList : Dictionary<Rm,  Room>
 
     public string Describe()
     {
-        string output = string.Empty;
-        if (Count == 0)
+        string s = "";
+        if (this.Count == 0)
         {
-            output = "Nothing in RoomList.";
+            s = "Nothing in RoomList.";
         }
         else
         {
-            foreach (KeyValuePair<Rm, Room> kvp in this)
+            foreach (KeyValuePair<Rm, Room> kv in this)
             {
-                output += kvp.Value.Describe() + Environment.NewLine;
+                s = s + kv.Value.Describe() + "\r\n";
             }
         }
-
-        return output;
+        return s;
     }
 }
