@@ -6,53 +6,53 @@ partial class Adventure
     //                        --- Parser ---
     // ===============================================================
 
-    Dictionary<string, WT> vocab = new Dictionary<string, WT>();
+    Dictionary<string, GrammarElement> vocab = new Dictionary<string, GrammarElement>();
 
     private void InitVocab()
     {
-        vocab.Add("acorn", WT.NOUN);
-        vocab.Add("bed", WT.NOUN);
-        vocab.Add("bin", WT.NOUN);
-        vocab.Add("bone", WT.NOUN);
-        vocab.Add("button", WT.NOUN);
-        vocab.Add("cheese", WT.NOUN);
-        vocab.Add("chest", WT.NOUN);
-        vocab.Add("coin", WT.NOUN);
-        vocab.Add("door", WT.NOUN);
-        vocab.Add("dust", WT.NOUN);
-        vocab.Add("gardenia", WT.NOUN);
-        vocab.Add("key", WT.NOUN);
-        vocab.Add("knife", WT.NOUN);
-        vocab.Add("lamp", WT.NOUN);
-        vocab.Add("leaflet", WT.NOUN);
-        vocab.Add("lever", WT.NOUN);
-        vocab.Add("pearl", WT.NOUN);
-        vocab.Add("rat", WT.NOUN);
-        vocab.Add("sack", WT.NOUN);
-        vocab.Add("shop", WT.NOUN);
-        vocab.Add("sign", WT.NOUN);
-        vocab.Add("slot", WT.NOUN);
-        vocab.Add("squirrel", WT.NOUN);
-        vocab.Add("take", WT.VERB);
-        vocab.Add("drop", WT.VERB);
-        vocab.Add("put", WT.VERB);
-        vocab.Add("look", WT.VERB);
-        vocab.Add("open", WT.VERB);
-        vocab.Add("close", WT.VERB);
-        vocab.Add("pull", WT.VERB);
-        vocab.Add("push", WT.VERB);
-        vocab.Add("n", WT.VERB);
-        vocab.Add("s", WT.VERB);
-        vocab.Add("w", WT.VERB);
-        vocab.Add("e", WT.VERB);
-        vocab.Add("up", WT.VERB);
-        vocab.Add("down", WT.VERB);
-        vocab.Add("a", WT.ARTICLE);
-        vocab.Add("an", WT.ARTICLE);
-        vocab.Add("the", WT.ARTICLE);
-        vocab.Add("in", WT.PREPOSITION);
-        vocab.Add("into", WT.PREPOSITION);
-        vocab.Add("at", WT.PREPOSITION);
+        vocab.Add("acorn", GrammarElement.NOUN);
+        vocab.Add("bed", GrammarElement.NOUN);
+        vocab.Add("bin", GrammarElement.NOUN);
+        vocab.Add("bone", GrammarElement.NOUN);
+        vocab.Add("button", GrammarElement.NOUN);
+        vocab.Add("cheese", GrammarElement.NOUN);
+        vocab.Add("chest", GrammarElement.NOUN);
+        vocab.Add("coin", GrammarElement.NOUN);
+        vocab.Add("door", GrammarElement.NOUN);
+        vocab.Add("dust", GrammarElement.NOUN);
+        vocab.Add("gardenia", GrammarElement.NOUN);
+        vocab.Add("key", GrammarElement.NOUN);
+        vocab.Add("knife", GrammarElement.NOUN);
+        vocab.Add("lamp", GrammarElement.NOUN);
+        vocab.Add("leaflet", GrammarElement.NOUN);
+        vocab.Add("lever", GrammarElement.NOUN);
+        vocab.Add("pearl", GrammarElement.NOUN);
+        vocab.Add("rat", GrammarElement.NOUN);
+        vocab.Add("sack", GrammarElement.NOUN);
+        vocab.Add("shop", GrammarElement.NOUN);
+        vocab.Add("sign", GrammarElement.NOUN);
+        vocab.Add("slot", GrammarElement.NOUN);
+        vocab.Add("squirrel", GrammarElement.NOUN);
+        vocab.Add("take", GrammarElement.VERB);
+        vocab.Add("drop", GrammarElement.VERB);
+        vocab.Add("put", GrammarElement.VERB);
+        vocab.Add("look", GrammarElement.VERB);
+        vocab.Add("open", GrammarElement.VERB);
+        vocab.Add("close", GrammarElement.VERB);
+        vocab.Add("pull", GrammarElement.VERB);
+        vocab.Add("push", GrammarElement.VERB);
+        vocab.Add("n", GrammarElement.VERB);
+        vocab.Add("s", GrammarElement.VERB);
+        vocab.Add("w", GrammarElement.VERB);
+        vocab.Add("e", GrammarElement.VERB);
+        vocab.Add("up", GrammarElement.VERB);
+        vocab.Add("down", GrammarElement.VERB);
+        vocab.Add("a", GrammarElement.ARTICLE);
+        vocab.Add("an", GrammarElement.ARTICLE);
+        vocab.Add("the", GrammarElement.ARTICLE);
+        vocab.Add("in", GrammarElement.PREPOSITION);
+        vocab.Add("into", GrammarElement.PREPOSITION);
+        vocab.Add("at", GrammarElement.PREPOSITION);
     }
 
     /* Command types:
@@ -72,15 +72,15 @@ partial class Adventure
 
         string output = string.Empty;
 
-        if ((wt1.Type != WT.VERB) || (wt3.Type != WT.PREPOSITION))
+        if ((wt1.Type != GrammarElement.VERB) || (wt3.Type != GrammarElement.PREPOSITION))
         {
             output = $"Can't do this because I don't understand how to {wt1.Word} something {wt3.Word} something else!";
         }
-        else if (wt2.Type != WT.NOUN)
+        else if (wt2.Type != GrammarElement.NOUN)
         {
             output = $"Can't do this because '{wt2.Word}' is not an object!";
         }
-        else if (wt4.Type != WT.NOUN)
+        else if (wt4.Type != GrammarElement.NOUN)
         {
             output = $"Can't do this because '{wt4.Word}' is not an object!";
         }
@@ -108,11 +108,11 @@ partial class Adventure
         WordAndType wt2 = command[1];
         WordAndType wt3 = command[2];
         string output = String.Empty;
-        if ((wt1.Type != WT.VERB) || (wt2.Type != WT.PREPOSITION))
+        if ((wt1.Type != GrammarElement.VERB) || (wt2.Type != GrammarElement.PREPOSITION))
         {
             output = $"Can't do this because I don't understand '{wt1.Word} {wt2.Word}' !";
         }
-        else if (wt3.Type != WT.NOUN)
+        else if (wt3.Type != GrammarElement.NOUN)
         {
             output = $"Can't do this because '{wt3.Word}' is not an object!{Environment.NewLine}";
         }
@@ -137,11 +137,11 @@ partial class Adventure
         WordAndType wt2 = command[1];
 
         string output = string.Empty;
-        if (wt1.Type != WT.VERB)
+        if (wt1.Type != GrammarElement.VERB)
         {
             output = $"Can't do this because '{wt1.Word}' is not a command!";
         }
-        else if (wt2.Type != WT.NOUN)
+        else if (wt2.Type != GrammarElement.NOUN)
         {
             output = $"Can't do this because '{wt2.Word}' is not an object!";
         }
@@ -179,7 +179,7 @@ partial class Adventure
     {
         WordAndType wt1 = command[0];
         string ouput = "";
-        if (wt1.Type != WT.VERB)
+        if (wt1.Type != GrammarElement.VERB)
         {
             ouput = $"Can't do this because '{wt1.Word}' is not a command!";
         }
@@ -255,7 +255,7 @@ partial class Adventure
     private string ParseCommand(List<string> wordList)
     {
         List<WordAndType> command = new List<WordAndType>();
-        WT wordType;
+        GrammarElement wordType;
         string errMsg = string.Empty;
         string output = string.Empty;
 
@@ -266,7 +266,7 @@ partial class Adventure
             if (vocab.ContainsKey(k))
             {
                 wordType = vocab[k];
-                if (wordType == WT.ARTICLE)
+                if (wordType == GrammarElement.ARTICLE)
                 {
 
                 }
@@ -277,7 +277,7 @@ partial class Adventure
             }
             else
             {
-                command.Add(new WordAndType(k, WT.ERROR));
+                command.Add(new WordAndType(k, GrammarElement.ERROR));
                 errMsg = $"Sorry, I don't understand '{k}'";
             }
         }

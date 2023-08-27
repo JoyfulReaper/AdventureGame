@@ -70,13 +70,13 @@ public class Room : ThingHolder
 
     public override string Describe()
     {
-        string roomdesc = "";
-        string thingsdesc = "";
+        string roomdesc;
+        string thingsdesc;
         roomdesc = $"{Name}. This is {Description}";
         thingsdesc = Things.Describe();
         if (thingsdesc != "")
         {
-            roomdesc += "\r\nHere you can see:\r\n" + thingsdesc;
+            roomdesc += $"{Environment.NewLine}{Environment.NewLine}Here you can see:{Environment.NewLine}" + thingsdesc;
         }
         return roomdesc;
     }

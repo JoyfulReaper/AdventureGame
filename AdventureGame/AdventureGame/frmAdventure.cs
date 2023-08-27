@@ -1,13 +1,12 @@
-using AdventureGame.GameClasses;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace AdventureGame;
 
-public partial class Form1 : Form
+public partial class frmAdventure : Form
 {
     private Adventure _advGameEngine = default!;
 
-    public Form1()
+    public frmAdventure()
     {
         InitializeComponent();
         InitGame();
@@ -111,6 +110,7 @@ public partial class Form1 : Form
 
     private void saveToolStripMenuItem_Click(object sender, EventArgs e)
     {
+        // TODO - Serialze to JSON or something other that BinaryFormatter
         Stream stream;
         BinaryFormatter binaryFormatter;
         if (saveFileDialog1.ShowDialog() == DialogResult.OK)
@@ -129,6 +129,7 @@ public partial class Form1 : Form
 
     private void lToolStripMenuItem_Click(object sender, EventArgs e)
     {
+        // TODO - Deserialize from JSON or something other that BinaryFormatter
         Stream stream;
         BinaryFormatter binaryFormatter;
         if (openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -148,7 +149,13 @@ public partial class Form1 : Form
 
     private void restartToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        InitGame();
+        var result = MessageBox.Show("Are you sure you would like to restart the game and lose all progress?",
+            "Restart the game?",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Question);
+
+        if (result == DialogResult.Yes)
+            InitGame();
     }
 
 

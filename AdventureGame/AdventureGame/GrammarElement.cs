@@ -1,6 +1,6 @@
 ﻿namespace AdventureGame;
 
-public enum WT
+public enum GrammarElement
 {
     NOUN,
     VERB,

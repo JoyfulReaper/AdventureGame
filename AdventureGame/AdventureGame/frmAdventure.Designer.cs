@@ -1,6 +1,6 @@
 ﻿namespace AdventureGame;
 
-partial class Form1
+partial class frmAdventure
 {
     /// <summary>
     ///  Required designer variable.
