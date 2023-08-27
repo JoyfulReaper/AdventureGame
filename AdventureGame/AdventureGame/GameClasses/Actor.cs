@@ -1,5 +1,6 @@
 ﻿namespace AdventureGame.GameClasses;
 
+[Serializable]
 public class Actor : ThingHolder
 {
     private Room _location = default!; // Room where Actor is at present

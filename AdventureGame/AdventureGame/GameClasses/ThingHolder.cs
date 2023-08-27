@@ -1,5 +1,6 @@
 ﻿namespace AdventureGame.GameClasses;
 
+[Serializable]
 public class ThingHolder : Thing
 {
     private ThingList _things = new ThingList();

@@ -1,5 +1,6 @@
 ﻿namespace AdventureGame.GameClasses;
 
+[Serializable]
 public class ContainerThing : ThingHolder
 {
     private bool _openable;

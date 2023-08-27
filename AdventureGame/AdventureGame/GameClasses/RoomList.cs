@@ -2,6 +2,7 @@
 
 namespace AdventureGame.GameClasses;
 
+[Serializable]
 public class RoomList : Dictionary<Rm,  Room>
 {
     protected RoomList(SerializationInfo info, StreamingContext context)

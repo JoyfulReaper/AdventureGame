@@ -2,6 +2,7 @@
 
 namespace AdventureGame.GameClasses;
 
+[Serializable]
 public class Room : ThingHolder
 {
     // Since Up and Down exits are rare, I have two constructors

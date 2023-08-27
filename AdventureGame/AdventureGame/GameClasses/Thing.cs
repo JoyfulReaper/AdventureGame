@@ -1,5 +1,6 @@
 ﻿namespace AdventureGame.GameClasses;
 
+[Serializable]
 public class Thing
 {
     private string _name = default!;

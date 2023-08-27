@@ -17,6 +17,7 @@ namespace AdventureGame;
 
 /// The Adventure class contains the 'world' of the game:
 /// It creates and initializes the player and the map.
+[Serializable]
 public partial class Adventure
 {
     private RoomList _map = default!;
