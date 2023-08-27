@@ -1,6 +1,7 @@
-﻿namespace AdventureGame.GameClasses;
+﻿using System.Text.Json.Serialization;
 
-[Serializable]
+namespace AdventureGame.GameClasses;
+
 public class Room : ThingHolder
 {
     // Since Up and Down exits are rare, I have two constructors

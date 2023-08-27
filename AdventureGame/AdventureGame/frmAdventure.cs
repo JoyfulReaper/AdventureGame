@@ -1,4 +1,5 @@
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
+using System.Text.Json;
 
 namespace AdventureGame;
 
@@ -15,6 +16,7 @@ public partial class frmAdventure : Form
     private void InitGame()
     {
         _advGameEngine = new Adventure();
+        _advGameEngine.InitializeGame();
         StartGame();
     }
 
@@ -110,18 +112,15 @@ public partial class frmAdventure : Form
 
     private void saveToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        // TODO - Serialze to JSON or something other that BinaryFormatter
         Stream stream;
-        BinaryFormatter binaryFormatter;
         if (saveFileDialog1.ShowDialog() == DialogResult.OK)
         {
             if ((stream = saveFileDialog1.OpenFile()) != null)
             {
-                binaryFormatter = new BinaryFormatter();
-#pragma warning disable SYSLIB0011
-                binaryFormatter.Serialize(stream, _advGameEngine); //TODO: https://learn.microsoft.com/en-us/dotnet/standard/serialization/binaryformatter-security-guide
-#pragma warning restore SYSLIB0011
+                var bytes = JsonByteArraySerializer.ObjectToByteArray(_advGameEngine);
+                stream.Write(bytes, 0, bytes.Length);
                 stream.Close();
+                stream.Dispose();
                 WriteLineToTextBox("Saved");
             }
         }
@@ -129,22 +128,22 @@ public partial class frmAdventure : Form
 
     private void lToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        // TODO - Deserialize from JSON or something other that BinaryFormatter
         Stream stream;
-        BinaryFormatter binaryFormatter;
         if (openFileDialog1.ShowDialog() == DialogResult.OK)
         {
             if ((stream = openFileDialog1.OpenFile()) != null)
             {
-                binaryFormatter = new BinaryFormatter();
-#pragma warning disable SYSLIB0011
-                _advGameEngine = (Adventure)binaryFormatter.Deserialize(stream); //TODO: https://learn.microsoft.com/en-us/dotnet/standard/serialization/binaryformatter-security-guide
-#pragma warning restore SYSLIB0011
+                var bytes = new byte[stream.Length];
+                stream.Read(bytes, 0, bytes.Length);
                 stream.Close();
+                stream.Dispose();
+                var test = Encoding.UTF8.GetString(bytes);
+                _advGameEngine = JsonByteArraySerializer.ByteArrayToObject<Adventure>(bytes);
+                WriteLineToTextBox("Loaded");
             }
         }
         outputTB.Clear();
-        _advGameEngine.Look();
+        WriteLineToTextBox(_advGameEngine.Look());
     }
 
     private void restartToolStripMenuItem_Click(object sender, EventArgs e)

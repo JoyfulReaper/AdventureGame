@@ -17,7 +17,6 @@ namespace AdventureGame;
 
 /// The Adventure class contains the 'world' of the game:
 /// It creates and initializes the player and the map.
-[Serializable]
 public partial class Adventure
 {
     private RoomList _map = default!;
@@ -33,7 +32,7 @@ public partial class Adventure
     * Drop cheese in attic to feed rat. Rat knocks off something (from rafter)
     * */
 
-    public Adventure()
+    public void InitializeGame()
     {
         InitVocab();        //!! Be sure to initialize the vocabulary list...
 

@@ -1,7 +1,5 @@
 ﻿
 namespace AdventureGame.GameClasses;
-
-[Serializable]
 public class ThingList : List<Thing>
 {
     public string Describe()
