@@ -4,6 +4,8 @@ using System.Text;
 using System.Text.Json.Serialization.Metadata;
 using System.Reflection;
 
+namespace AdventureGame;
+
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
 public class JsonIncludePrivateFieldsAttribute : Attribute { }
 

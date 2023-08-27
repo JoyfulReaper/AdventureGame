@@ -7,7 +7,7 @@
 /// </summary>
 ///     
 
-public enum Rm
+public enum RoomId
 {
     GoreStreet,
     Alleyway,
@@ -29,7 +29,7 @@ public enum Rm
     NOEXIT
 }
 
-public enum ObID
+public enum ObjectId
 {
     Leaflet,
     SignGoreStreet,
@@ -45,7 +45,7 @@ public enum ObID
     Chest
 }
 
-public enum Dir {
+public enum Direction {
     NORTH,
     SOUTH,
     EAST,

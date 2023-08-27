@@ -1,6 +1,4 @@
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Text.Json;
 
 namespace AdventureGame;
 
@@ -43,7 +41,7 @@ public partial class frmAdventure : Form
 
     private void ShowInventory()
     {        
-        WriteLineToTextBox($"You have {_advGameEngine.Player.Things.Describe()}");
+        WriteLineToTextBox($"You have {_advGameEngine.Player.Inventory.Describe()}");
     }
 
     private void LookBtn_Click(object sender, EventArgs e)
@@ -51,39 +49,39 @@ public partial class frmAdventure : Form
         WriteLineToTextBox(_advGameEngine.Look());
     }
 
-    private void MovePlayer(Dir direction)
+    private void MovePlayer(Direction direction)
     {
         WriteLineToTextBox(_advGameEngine.MovePlayerTo(direction));
     }
 
     private void NBtn_Click(object sender, EventArgs e)
     {
-        MovePlayer(Dir.NORTH);
+        MovePlayer(Direction.NORTH);
     }
 
     private void WBtn_Click(object sender, EventArgs e)
     {
-        MovePlayer(Dir.WEST);
+        MovePlayer(Direction.WEST);
     }
 
     private void EBtn_Click(object sender, EventArgs e)
     {
-        MovePlayer(Dir.EAST);
+        MovePlayer(Direction.EAST);
     }
 
     private void SBtn_Click(object sender, EventArgs e)
     {
-        MovePlayer(Dir.SOUTH);
+        MovePlayer(Direction.SOUTH);
     }
 
     private void UpBtn_Click(object sender, EventArgs e)
     {
-        MovePlayer(Dir.UP);
+        MovePlayer(Direction.UP);
     }
 
     private void DownBtn_Click(object sender, EventArgs e)
     {
-        MovePlayer(Dir.DOWN);
+        MovePlayer(Direction.DOWN);
     }
 
     private void TakeBtn_Click(object sender, EventArgs e)

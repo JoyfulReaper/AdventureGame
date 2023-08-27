@@ -20,8 +20,8 @@ namespace AdventureGame;
 [Serializable]
 public partial class Adventure
 {
-    private RoomList _map = default!;
-    private Actor _player = default!;
+    private Map _map = default!;
+    private Character _player = default!;
     /*
     * ADDED: Pull/Push/Put..in
     * TODO: Puzzles: 
@@ -35,7 +35,7 @@ public partial class Adventure
 
     public void InitializeGame()
     {
-        InitVocab();        //!! Be sure to initialize the vocabulary list...
+        InitializeVocabulary();        //!! Be sure to initialize the vocabulary list...
 
         /*
          * 
@@ -59,147 +59,147 @@ public partial class Adventure
         * */
 
         // Initialize _map with Rooms
-        _map = new RoomList {
+        _map = new Map {
                 /*                  N                   S                   W                   E               Up              Down   */
-                { Rm.GoreStreet, new Room("Gore Street", "a narrow, twisty street that smells of decay.\r\nThere is a sign on the wall",
-                                Rm.NOEXIT,          Rm.DeadEnd,         Rm.NOEXIT,           Rm.Alleyway,
-                                new ThingList())  },
-                { Rm.Alleyway, new Room("Alleyway", "a dismal alleyway enclosed by the crumbling walls of tall buildings",
-                                Rm.NOEXIT,          Rm.NOEXIT,          Rm.GoreStreet,       Rm.OpiumTerrace,
-                                new ThingList ()) },
-                { Rm.DeadEnd, new Room("Dead End", "a sinister little street that leads nowhere.\r\nThere is a button on the wall",
-                                Rm.GoreStreet,      Rm.NOEXIT,          Rm.NOEXIT,           Rm.OpiumTerrace,
-                                new ThingList()) },
-                { Rm.OpiumTerrace, new Room("Opium Terrace", "a dark, dripping terrace illuminated by a hissing gas lamp.\r\nThere is a sign on the wall",
-                                Rm.NOEXIT,          Rm.NOEXIT,          Rm.Alleyway,         Rm.GardenN,
-                                new ThingList()) },
-                { Rm.DaggerStreet, new Room("Dagger Street", "a long, winding street with exits to North and South. There is a narrow alleyway to the west." +
+                { RoomId.GoreStreet, new Room("Gore Street", "a narrow, twisty street that smells of decay.\r\nThere is a sign on the wall",
+                                RoomId.NOEXIT,          RoomId.DeadEnd,         RoomId.NOEXIT,           RoomId.Alleyway,
+                                new Inventory())  },
+                { RoomId.Alleyway, new Room("Alleyway", "a dismal alleyway enclosed by the crumbling walls of tall buildings",
+                                RoomId.NOEXIT,          RoomId.NOEXIT,          RoomId.GoreStreet,       RoomId.OpiumTerrace,
+                                new Inventory ()) },
+                { RoomId.DeadEnd, new Room("Dead End", "a sinister little street that leads nowhere.\r\nThere is a button on the wall",
+                                RoomId.GoreStreet,      RoomId.NOEXIT,          RoomId.NOEXIT,           RoomId.OpiumTerrace,
+                                new Inventory()) },
+                { RoomId.OpiumTerrace, new Room("Opium Terrace", "a dark, dripping terrace illuminated by a hissing gas lamp.\r\nThere is a sign on the wall",
+                                RoomId.NOEXIT,          RoomId.NOEXIT,          RoomId.Alleyway,         RoomId.GardenN,
+                                new Inventory()) },
+                { RoomId.DaggerStreet, new Room("Dagger Street", "a long, winding street with exits to North and South. There is a narrow alleyway to the west." +
                                             "\r\nOn the northern side stands a deserted shop. There is a sign on the wall",
-                                Rm.NOEXIT,          Rm.OpiumTerrace,    Rm.Alleyway,         Rm.RipperMews,
-                                new ThingList()) },
-                { Rm.RipperMews, new Room("Ripper Mews", "a delightful little street filled with the scent of gardenia.\r\nThere is a sign on the wall",
-                                Rm.NOEXIT,          Rm.GardenN,         Rm.DaggerStreet,     Rm.NOEXIT,
-                                new ThingList()) },
-                { Rm.GardenN, new Room("Garden", "a lovely garden. A gardenia bush blossoms next to the gate. Walkways lead to other parts of the garden.\r\n" +
+                                RoomId.NOEXIT,          RoomId.OpiumTerrace,    RoomId.Alleyway,         RoomId.RipperMews,
+                                new Inventory()) },
+                { RoomId.RipperMews, new Room("Ripper Mews", "a delightful little street filled with the scent of gardenia.\r\nThere is a sign on the wall",
+                                RoomId.NOEXIT,          RoomId.GardenN,         RoomId.DaggerStreet,     RoomId.NOEXIT,
+                                new Inventory()) },
+                { RoomId.GardenN, new Room("Garden", "a lovely garden. A gardenia bush blossoms next to the gate. Walkways lead to other parts of the garden.\r\n" +
                                         "A squirrel suddenly runs across the grass in front of you. It seems to be holding a pearl." +
                                         "\r\nThe squirrel squeals then runs off into the distance.",
-                                Rm.RipperMews,      Rm.GardenS,         Rm.OpiumTerrace,     Rm.NOEXIT,
-                                new ThingList()) },
-                { Rm.GardenS, new Room("Garden", "a lovely garden. A mighty oak tree towers above you. Walkways lead to other parts of the garden",
-                                Rm.GardenN,         Rm.NOEXIT,          Rm.VegetableGarden,   Rm.PalmHouse,     Rm.OakTree,     Rm.NOEXIT,
-                                new ThingList()) },
-                { Rm.OakTree, new Room("Oak tree", "a mighty oak tree that towers over the garden. You have a glorious view of a splendid Palm House to your East," +
+                                RoomId.RipperMews,      RoomId.GardenS,         RoomId.OpiumTerrace,     RoomId.NOEXIT,
+                                new Inventory()) },
+                { RoomId.GardenS, new Room("Garden", "a lovely garden. A mighty oak tree towers above you. Walkways lead to other parts of the garden",
+                                RoomId.GardenN,         RoomId.NOEXIT,          RoomId.VegetableGarden,   RoomId.PalmHouse,     RoomId.OakTree,     RoomId.NOEXIT,
+                                new Inventory()) },
+                { RoomId.OakTree, new Room("Oak tree", "a mighty oak tree that towers over the garden. You have a glorious view of a splendid Palm House to your East," +
                                         "the vegetable garden to the West and other parts of the garden to the North. You vaguely see other parts of the city" +
                                         "in the distance, but the buildings are obscured by drifting fog.",
-                                Rm.NOEXIT,         Rm.NOEXIT,           Rm.NOEXIT,            Rm.NOEXIT,        Rm.NOEXIT,      Rm.GardenS,
-                                new ThingList()) },
-                 { Rm.VegetableGarden, new Room("Vegetable garden", "a garden filled with sprouting vegetables in bewildering variety",
-                                Rm.NOEXIT,         Rm.NOEXIT,           Rm.NOEXIT,            Rm.GardenS,
-                                new ThingList()) },
-                 { Rm.PalmHouse, new Room("Palm House", "a tall, elegant structure made of glass panes set in an cast-iron frame. The atmosphere is hot and humid." +
+                                RoomId.NOEXIT,         RoomId.NOEXIT,           RoomId.NOEXIT,            RoomId.NOEXIT,        RoomId.NOEXIT,      RoomId.GardenS,
+                                new Inventory()) },
+                 { RoomId.VegetableGarden, new Room("Vegetable garden", "a garden filled with sprouting vegetables in bewildering variety",
+                                RoomId.NOEXIT,         RoomId.NOEXIT,           RoomId.NOEXIT,            RoomId.GardenS,
+                                new Inventory()) },
+                 { RoomId.PalmHouse, new Room("Palm House", "a tall, elegant structure made of glass panes set in an cast-iron frame. The atmosphere is hot and humid." +
                                         "\r\nHuge palm trees rise high overhead. An elaborate cast-iron staircase leads up to a bacony",
-                                Rm.NOEXIT,         Rm.NOEXIT,           Rm.GardenS,            Rm.NOEXIT,       Rm.Balcony,     Rm.NOEXIT,
-                                new ThingList()) },
-                 { Rm.Balcony, new Room("Balcony", "a balcony at the height of the tallest palms. All you can see are palm fronds everywhere. The windows are too misty to see through",
-                                Rm.NOEXIT,         Rm.NOEXIT,           Rm.NOEXIT,            Rm.NOEXIT,       Rm.NOEXIT,     Rm.PalmHouse,
-                                new ThingList()) },
-                 { Rm.DesertedShop, new Room("Deserted shop", "a musty old shop. There is nothing here but dust",
-                                Rm.NOEXIT,         Rm.DaggerStreet,     Rm.NOEXIT,            Rm.Kitchen,       Rm.Attic,     Rm.Basement,
-                                new ThingList()) },
-                 { Rm.Basement, new Room("Basement", "a dank, dripping basement that smells of fungus",
-                                Rm.NOEXIT,         Rm.NOEXIT,           Rm.NOEXIT,            Rm.NOEXIT,       Rm.DesertedShop,     Rm.NOEXIT,
-                                new ThingList()) },
-                 { Rm.Attic, new Room("Attic", "a cramped space under the roof. A hungry-looking rat is sitting on a rafter",
-                                Rm.NOEXIT,         Rm.NOEXIT,           Rm.NOEXIT,            Rm.Bedroom,       Rm.NOEXIT,     Rm.DesertedShop,
-                                new ThingList()) },
-                 { Rm.Bedroom, new Room("Bedroom", "a tiny room containing a small, damp bed and a huge wooden chest",
-                                Rm.NOEXIT,         Rm.NOEXIT,           Rm.Attic,            Rm.NOEXIT,
-                                new ThingList()) },
-                 { Rm.Kitchen, new Room("Kitchen", "an untidy kitchen that smells of rancid cheese",
-                                Rm.NOEXIT,         Rm.NOEXIT,           Rm.DesertedShop,            Rm.NOEXIT,
-                                new ThingList()) }
+                                RoomId.NOEXIT,         RoomId.NOEXIT,           RoomId.GardenS,            RoomId.NOEXIT,       RoomId.Balcony,     RoomId.NOEXIT,
+                                new Inventory()) },
+                 { RoomId.Balcony, new Room("Balcony", "a balcony at the height of the tallest palms. All you can see are palm fronds everywhere. The windows are too misty to see through",
+                                RoomId.NOEXIT,         RoomId.NOEXIT,           RoomId.NOEXIT,            RoomId.NOEXIT,       RoomId.NOEXIT,     RoomId.PalmHouse,
+                                new Inventory()) },
+                 { RoomId.DesertedShop, new Room("Deserted shop", "a musty old shop. There is nothing here but dust",
+                                RoomId.NOEXIT,         RoomId.DaggerStreet,     RoomId.NOEXIT,            RoomId.Kitchen,       RoomId.Attic,     RoomId.Basement,
+                                new Inventory()) },
+                 { RoomId.Basement, new Room("Basement", "a dank, dripping basement that smells of fungus",
+                                RoomId.NOEXIT,         RoomId.NOEXIT,           RoomId.NOEXIT,            RoomId.NOEXIT,       RoomId.DesertedShop,     RoomId.NOEXIT,
+                                new Inventory()) },
+                 { RoomId.Attic, new Room("Attic", "a cramped space under the roof. A hungry-looking rat is sitting on a rafter",
+                                RoomId.NOEXIT,         RoomId.NOEXIT,           RoomId.NOEXIT,            RoomId.Bedroom,       RoomId.NOEXIT,     RoomId.DesertedShop,
+                                new Inventory()) },
+                 { RoomId.Bedroom, new Room("Bedroom", "a tiny room containing a small, damp bed and a huge wooden chest",
+                                RoomId.NOEXIT,         RoomId.NOEXIT,           RoomId.Attic,            RoomId.NOEXIT,
+                                new Inventory()) },
+                 { RoomId.Kitchen, new Room("Kitchen", "an untidy kitchen that smells of rancid cheese",
+                                RoomId.NOEXIT,         RoomId.NOEXIT,           RoomId.DesertedShop,            RoomId.NOEXIT,
+                                new Inventory()) }
 
             };
 
         // NOTE: Add Things to selected Rooms (after Rooms are created and added to map)
-        _map[Rm.GoreStreet].AddThings(new ThingList {
-                        new Thing("leaflet", "The leaflet says: 'Ripper Strikes Again!'"),
-                        new Thing("sign", "The sign says 'Gore Street'", false, false),
-                        new ContainerThing("sack", "a smelly old sack", true, true, true, true, new ThingList())
+        _map[RoomId.GoreStreet].AddThings(new Inventory {
+                        new Item("leaflet", "The leaflet says: 'Ripper Strikes Again!'"),
+                        new Item("sign", "The sign says 'Gore Street'", false, false),
+                        new ContainerItem("sack", "a smelly old sack", true, true, true, true, new Inventory())
                 });
-        _map[Rm.Alleyway].AddThings(new ThingList {
-                        new ContainerThing("bin", "It is a smelly bin.", false, true, true, true,
-                            new ThingList{
-                                new Thing("bone", "A bone that looks as though it has been gnawed by a dog"),
-                                new Thing("coin", "A small, silver coin of unknown denomination")
+        _map[RoomId.Alleyway].AddThings(new Inventory {
+                        new ContainerItem("bin", "It is a smelly bin.", false, true, true, true,
+                            new Inventory{
+                                new Item("bone", "A bone that looks as though it has been gnawed by a dog"),
+                                new Item("coin", "A small, silver coin of unknown denomination")
                             }),
-                        new Thing("knife", "It is a blood-stained carving knife")
+                        new Item("knife", "It is a blood-stained carving knife")
                     });
-        _map[Rm.OpiumTerrace].AddThing(new Thing("lamp", "The hissing gas lamp is fixed high up on a wall. It produces a sickly, green, flickering light", false, false));
-        _map[Rm.OpiumTerrace].AddThing(new Thing("sign", "The sign says 'Opium Terrace'", false, false));
-        _map[Rm.DaggerStreet].AddThing(new Thing("sign", "The sign says 'Dagger Street'", false, false));
-        _map[Rm.DaggerStreet].AddThing(new Thing("shop", "It is a deserted shop", false, false));
-        _map[Rm.OakTree].AddThing(new Thing("acorn", "A very ordinary-looking acorn"));
-        _map[Rm.Bedroom].AddThing(new Thing("bed", "A nasty, rather damp bed", false, true));
-        _map[Rm.Bedroom].AddThing(new ContainerThing("chest", "A wooden chest", false, true, true, false,
-             new ThingList{
-                                new Thing("key", "A small brass key")
+        _map[RoomId.OpiumTerrace].AddThing(new Item("lamp", "The hissing gas lamp is fixed high up on a wall. It produces a sickly, green, flickering light", false, false));
+        _map[RoomId.OpiumTerrace].AddThing(new Item("sign", "The sign says 'Opium Terrace'", false, false));
+        _map[RoomId.DaggerStreet].AddThing(new Item("sign", "The sign says 'Dagger Street'", false, false));
+        _map[RoomId.DaggerStreet].AddThing(new Item("shop", "It is a deserted shop", false, false));
+        _map[RoomId.OakTree].AddThing(new Item("acorn", "A very ordinary-looking acorn"));
+        _map[RoomId.Bedroom].AddThing(new Item("bed", "A nasty, rather damp bed", false, true));
+        _map[RoomId.Bedroom].AddThing(new ContainerItem("chest", "A wooden chest", false, true, true, false,
+             new Inventory{
+                                new Item("key", "A small brass key")
                         }));
-        _map[Rm.DesertedShop].AddThing(new Thing("dust", "It is very ordinary-looking dust.", false, true));
-        _map[Rm.Attic].AddThing(new Thing("rat", "A scabby, hungry-looking rat with yellow teeth and green eyes.\r\nIt is sitting on the rafter sniffing the air and squeaking.", false, false));
-        _map[Rm.Kitchen].AddThing(new Thing("cheese", "A smelly lump of cheese"));
-        _map[Rm.Balcony].AddThing(new Thing("lever", "A lever fixed to the wall", false, true));
-        _map[Rm.Balcony].AddThing(new Thing("sign", "The sign says: 'Coin operated'", false, true));
-        _map[Rm.Balcony].AddThing(new ContainerThing("slot", "A lever fixed to the wall", false, false, false, true, new ThingList()));
-        _map[Rm.DeadEnd].AddThing(new Thing("button", "A glowing green button on the wall", false, true));
-        _player = new Actor("You", "The Player", _map.RoomAt(Rm.GoreStreet), new ThingList());
+        _map[RoomId.DesertedShop].AddThing(new Item("dust", "It is very ordinary-looking dust.", false, true));
+        _map[RoomId.Attic].AddThing(new Item("rat", "A scabby, hungry-looking rat with yellow teeth and green eyes.\r\nIt is sitting on the rafter sniffing the air and squeaking.", false, false));
+        _map[RoomId.Kitchen].AddThing(new Item("cheese", "A smelly lump of cheese"));
+        _map[RoomId.Balcony].AddThing(new Item("lever", "A lever fixed to the wall", false, true));
+        _map[RoomId.Balcony].AddThing(new Item("sign", "The sign says: 'Coin operated'", false, true));
+        _map[RoomId.Balcony].AddThing(new ContainerItem("slot", "A lever fixed to the wall", false, false, false, true, new Inventory()));
+        _map[RoomId.DeadEnd].AddThing(new Item("button", "A glowing green button on the wall", false, true));
+        _player = new Character("You", "The Player", _map.RoomAt(RoomId.GoreStreet), new Inventory());
     }
 
     //// --- Player
-    public Actor Player {
+    public Character Player {
         get => _player;
     }
 
-    private static void MoveActorTo(Actor actor, Room room) =>
+    private static void MoveActorTo(Character actor, Room room) =>
         actor.Location = room;
 
-    private Rm MoveTo(Actor actor, Dir direction)
+    private RoomId MoveTo(Character actor, Direction direction)
     {
         Room r = actor.Location;
-        Rm exit;
+        RoomId exit;
         switch (direction)
         {
-            case Dir.NORTH:
+            case Direction.NORTH:
                 exit = r.N;
                 break;
-            case Dir.SOUTH:
+            case Direction.SOUTH:
                 exit = r.S;
                 break;
-            case Dir.EAST:
+            case Direction.EAST:
                 exit = r.E;
                 break;
-            case Dir.WEST:
+            case Direction.WEST:
                 exit = r.W;
                 break;
-            case Dir.UP:
+            case Direction.UP:
                 exit = r.Up;
                 break;
-            case Dir.DOWN:
+            case Direction.DOWN:
                 exit = r.Down;
                 break;
             default:
-                exit = Rm.NOEXIT;
+                exit = RoomId.NOEXIT;
                 break;
         }
 
-        if (exit != Rm.NOEXIT)
+        if (exit != RoomId.NOEXIT)
         {
             MoveActorTo(actor, _map.RoomAt(exit));
         }
         return exit;
     }
 
-    private static void TransferOb(Thing thing, ThingList source, ThingList destination)
+    private static void TransferOb(Item thing, Inventory source, Inventory destination)
     {
         source.Remove(thing);
         destination.Add(thing);
@@ -207,35 +207,35 @@ public partial class Adventure
 
     // NOTE: Looks for ob in any open containers in current room
     // if found returns a pair of objects: Key = Thing, Value = ThingList containing Thing
-    private KeyValuePair<Thing?, ThingList?> ObInContainerHere(string obName)
+    private KeyValuePair<Item?, Inventory?> ObInContainerHere(string obName)
     {
-        ContainerThing? container = null;
-        Thing? thing = null;
-        ThingList? thingList = null;
+        ContainerItem? container = null;
+        Item? thing = null;
+        Inventory? thingList = null;
 
-        foreach (Thing t in _player.Location.Things)
+        foreach (Item t in _player.Location.Inventory)
         {
-            if (t is ContainerThing)
+            if (t is ContainerItem)
             {
-                container = (ContainerThing)t;
+                container = (ContainerItem)t;
                 if (container.IsOpen)
                 {
-                    thingList = container.Things;
-                    thing = container.Things.GetOb(obName);
+                    thingList = container.Inventory;
+                    thing = container.Inventory.GetItem(obName);
                 }
             }
         }
-        return new KeyValuePair<Thing?, ThingList?>(thing, thingList);
+        return new KeyValuePair<Item?, Inventory?>(thing, thingList);
     }
 
-        private Thing? ObHere(string obName)
+        private Item? ObHere(string obName)
     {
-        KeyValuePair<Thing?, ThingList?> kv;
-        Thing? thing = null;
-        thing = _player.Location.Things.GetOb(obName);
+        KeyValuePair<Item?, Inventory?> kv;
+        Item? thing = null;
+        thing = _player.Location.Inventory.GetItem(obName);
         if (thing is null)
         {
-            thing = _player.Things.GetOb(obName);
+            thing = _player.Inventory.GetItem(obName);
         }
         if (thing is null)
         {
@@ -245,7 +245,7 @@ public partial class Adventure
         return thing;
     }
 
-    private static string TryToOpen(ContainerThing container)
+    private static string TryToOpen(ContainerItem container)
     {
         string output;
         if (!container.Openable)
@@ -267,7 +267,7 @@ public partial class Adventure
         return output;
     }
 
-    private static string TryToClose(ContainerThing container)
+    private static string TryToClose(ContainerItem container)
     {
         string output;
         if (!container.Openable)
@@ -290,10 +290,10 @@ public partial class Adventure
     }
 
     // --- Public methods
-    public string MovePlayerTo(Dir direction)
+    public string MovePlayerTo(Direction direction)
     {
         string output;
-        if (MoveTo(_player, direction) == Rm.NOEXIT)
+        if (MoveTo(_player, direction) == RoomId.NOEXIT)
         {
             output = $"There is no exit in that direction.{Environment.NewLine}";
         }
@@ -312,8 +312,8 @@ public partial class Adventure
     public string PutObInContainer(string obName, string containerName)
     {
         string output = string.Empty;
-        Thing thing = _player.Things.GetOb(obName);
-        Thing container = ObHere(containerName);
+        Item thing = _player.Inventory.GetItem(obName);
+        Item container = ObHere(containerName);
 
         if (thing is null)
         {
@@ -323,17 +323,17 @@ public partial class Adventure
         {
             output = $"There is no {containerName} here!";
         }
-        else if (!(container is ContainerThing))
+        else if (!(container is ContainerItem))
         {
             output = $"You can't put the {obName} into the {containerName}!";
         }
-        else if (!((ContainerThing)container).IsOpen)
+        else if (!((ContainerItem)container).IsOpen)
         {
             output = $"You can't put the {obName} into a closed {containerName}!";
         }
         else
         {
-            TransferOb(thing, _player.Things, ((ContainerThing)container).Things);
+            TransferOb(thing, _player.Inventory, ((ContainerItem)container).Inventory);
             output = $"You put the {obName} into the {containerName}.";
         }
         return output;
@@ -342,12 +342,12 @@ public partial class Adventure
     // NOTE: Now allows things to be taken from open Containers!
     public string TakeOb(string obName)
     {
-        KeyValuePair<Thing?, ThingList?> kv;
-        Thing thing;
-        ThingList thingList;
+        KeyValuePair<Item?, Inventory?> kv;
+        Item thing;
+        Inventory thingList;
         string output = string.Empty;
-        thing = _player.Location.Things.GetOb(obName);                   // See if ob is 'in room'
-        thingList = _player.Location.Things;
+        thing = _player.Location.Inventory.GetItem(obName);                   // See if ob is 'in room'
+        thingList = _player.Location.Inventory;
 
         if (string.IsNullOrWhiteSpace(obName))
         {
@@ -367,7 +367,7 @@ public partial class Adventure
         {
             if (thing.Takeable)
             {
-                TransferOb(thing, thingList, _player.Things);
+                TransferOb(thing, thingList, _player.Inventory);
                 output = thing.Name + " taken!";
             }
             else
@@ -380,7 +380,7 @@ public partial class Adventure
 
     public string DropOb(string obName)
     {
-        Thing? thing = _player.Things.GetOb(obName);
+        Item? thing = _player.Inventory.GetItem(obName);
         string output;
         if (thing is null)
         {
@@ -388,7 +388,7 @@ public partial class Adventure
         }
         else
         {
-            TransferOb(thing, _player.Things, _player.Location.Things);
+            TransferOb(thing, _player.Inventory, _player.Location.Inventory);
             output = thing.Name + " dropped!";
         }
         return output;
@@ -396,7 +396,7 @@ public partial class Adventure
 
     public string LookAtOb(string obName)
     {
-        Thing? thing;
+        Item? thing;
         string s = "";
         if (obName == "")
         {
@@ -419,7 +419,7 @@ public partial class Adventure
 
     public string OpenOb(string obName)
     {
-        Thing? thing;
+        Item? thing;
         string output = "";
         if (obName == "")
         {
@@ -434,9 +434,9 @@ public partial class Adventure
             }
             else
             {
-                if (thing is ContainerThing)
+                if (thing is ContainerItem)
                 {
-                    output = TryToOpen((ContainerThing)thing);
+                    output = TryToOpen((ContainerItem)thing);
                 }
                 else
                 {
@@ -449,7 +449,7 @@ public partial class Adventure
 
     public string CloseOb(string obName)
     {
-        Thing? thing;
+        Item? thing;
         string ouput = "";
         if (obName == "")
         {
@@ -464,9 +464,9 @@ public partial class Adventure
             }
             else
             {
-                if (thing is ContainerThing)
+                if (thing is ContainerItem)
                 {
-                    ouput = TryToClose((ContainerThing)thing);
+                    ouput = TryToClose((ContainerItem)thing);
                 }
                 else
                 {
@@ -479,7 +479,7 @@ public partial class Adventure
 
     public string PullOb(string obName)
     {
-        Thing? thing;
+        Item? thing;
         string output;
         thing = ObHere(obName);
         if (thing is null)
@@ -506,7 +506,7 @@ public partial class Adventure
 
     public string PushOb(string obName)
     {
-        Thing? thing;
+        Item? thing;
         string ouput = "";
         thing = ObHere(obName);
         if (thing == null)

@@ -3,16 +3,16 @@
 namespace AdventureGame.GameClasses;
 
 [Serializable]
-public class RoomList : Dictionary<Rm,  Room>
+public class Map : Dictionary<RoomId,  Room>
 {
-    protected RoomList(SerializationInfo info, StreamingContext context)
+    protected Map(SerializationInfo info, StreamingContext context)
         : base(info, context) {
         // constructor needed for serialization
     }
 
-    public RoomList() { }
+    public Map() { }
 
-    public Room RoomAt(Rm id)
+    public Room RoomAt(RoomId id)
     {
         return this[id];
     }
@@ -26,7 +26,7 @@ public class RoomList : Dictionary<Rm,  Room>
         }
         else
         {
-            foreach (KeyValuePair<Rm, Room> kv in this)
+            foreach (KeyValuePair<RoomId, Room> kv in this)
             {
                 s = s + kv.Value.Describe() + "\r\n";
             }

@@ -6,53 +6,53 @@ partial class Adventure
     //                        --- Parser ---
     // ===============================================================
 
-    Dictionary<string, GrammarElement> vocab = new Dictionary<string, GrammarElement>();
+    readonly Dictionary<string, GrammarElement> _vocabulary = new Dictionary<string, GrammarElement>();
 
-    private void InitVocab()
+    private void InitializeVocabulary()
     {
-        vocab.Add("acorn", GrammarElement.NOUN);
-        vocab.Add("bed", GrammarElement.NOUN);
-        vocab.Add("bin", GrammarElement.NOUN);
-        vocab.Add("bone", GrammarElement.NOUN);
-        vocab.Add("button", GrammarElement.NOUN);
-        vocab.Add("cheese", GrammarElement.NOUN);
-        vocab.Add("chest", GrammarElement.NOUN);
-        vocab.Add("coin", GrammarElement.NOUN);
-        vocab.Add("door", GrammarElement.NOUN);
-        vocab.Add("dust", GrammarElement.NOUN);
-        vocab.Add("gardenia", GrammarElement.NOUN);
-        vocab.Add("key", GrammarElement.NOUN);
-        vocab.Add("knife", GrammarElement.NOUN);
-        vocab.Add("lamp", GrammarElement.NOUN);
-        vocab.Add("leaflet", GrammarElement.NOUN);
-        vocab.Add("lever", GrammarElement.NOUN);
-        vocab.Add("pearl", GrammarElement.NOUN);
-        vocab.Add("rat", GrammarElement.NOUN);
-        vocab.Add("sack", GrammarElement.NOUN);
-        vocab.Add("shop", GrammarElement.NOUN);
-        vocab.Add("sign", GrammarElement.NOUN);
-        vocab.Add("slot", GrammarElement.NOUN);
-        vocab.Add("squirrel", GrammarElement.NOUN);
-        vocab.Add("take", GrammarElement.VERB);
-        vocab.Add("drop", GrammarElement.VERB);
-        vocab.Add("put", GrammarElement.VERB);
-        vocab.Add("look", GrammarElement.VERB);
-        vocab.Add("open", GrammarElement.VERB);
-        vocab.Add("close", GrammarElement.VERB);
-        vocab.Add("pull", GrammarElement.VERB);
-        vocab.Add("push", GrammarElement.VERB);
-        vocab.Add("n", GrammarElement.VERB);
-        vocab.Add("s", GrammarElement.VERB);
-        vocab.Add("w", GrammarElement.VERB);
-        vocab.Add("e", GrammarElement.VERB);
-        vocab.Add("up", GrammarElement.VERB);
-        vocab.Add("down", GrammarElement.VERB);
-        vocab.Add("a", GrammarElement.ARTICLE);
-        vocab.Add("an", GrammarElement.ARTICLE);
-        vocab.Add("the", GrammarElement.ARTICLE);
-        vocab.Add("in", GrammarElement.PREPOSITION);
-        vocab.Add("into", GrammarElement.PREPOSITION);
-        vocab.Add("at", GrammarElement.PREPOSITION);
+        _vocabulary.Add("acorn", GrammarElement.NOUN);
+        _vocabulary.Add("bed", GrammarElement.NOUN);
+        _vocabulary.Add("bin", GrammarElement.NOUN);
+        _vocabulary.Add("bone", GrammarElement.NOUN);
+        _vocabulary.Add("button", GrammarElement.NOUN);
+        _vocabulary.Add("cheese", GrammarElement.NOUN);
+        _vocabulary.Add("chest", GrammarElement.NOUN);
+        _vocabulary.Add("coin", GrammarElement.NOUN);
+        _vocabulary.Add("door", GrammarElement.NOUN);
+        _vocabulary.Add("dust", GrammarElement.NOUN);
+        _vocabulary.Add("gardenia", GrammarElement.NOUN);
+        _vocabulary.Add("key", GrammarElement.NOUN);
+        _vocabulary.Add("knife", GrammarElement.NOUN);
+        _vocabulary.Add("lamp", GrammarElement.NOUN);
+        _vocabulary.Add("leaflet", GrammarElement.NOUN);
+        _vocabulary.Add("lever", GrammarElement.NOUN);
+        _vocabulary.Add("pearl", GrammarElement.NOUN);
+        _vocabulary.Add("rat", GrammarElement.NOUN);
+        _vocabulary.Add("sack", GrammarElement.NOUN);
+        _vocabulary.Add("shop", GrammarElement.NOUN);
+        _vocabulary.Add("sign", GrammarElement.NOUN);
+        _vocabulary.Add("slot", GrammarElement.NOUN);
+        _vocabulary.Add("squirrel", GrammarElement.NOUN);
+        _vocabulary.Add("take", GrammarElement.VERB);
+        _vocabulary.Add("drop", GrammarElement.VERB);
+        _vocabulary.Add("put", GrammarElement.VERB);
+        _vocabulary.Add("look", GrammarElement.VERB);
+        _vocabulary.Add("open", GrammarElement.VERB);
+        _vocabulary.Add("close", GrammarElement.VERB);
+        _vocabulary.Add("pull", GrammarElement.VERB);
+        _vocabulary.Add("push", GrammarElement.VERB);
+        _vocabulary.Add("n", GrammarElement.VERB);
+        _vocabulary.Add("s", GrammarElement.VERB);
+        _vocabulary.Add("w", GrammarElement.VERB);
+        _vocabulary.Add("e", GrammarElement.VERB);
+        _vocabulary.Add("up", GrammarElement.VERB);
+        _vocabulary.Add("down", GrammarElement.VERB);
+        _vocabulary.Add("a", GrammarElement.ARTICLE);
+        _vocabulary.Add("an", GrammarElement.ARTICLE);
+        _vocabulary.Add("the", GrammarElement.ARTICLE);
+        _vocabulary.Add("in", GrammarElement.PREPOSITION);
+        _vocabulary.Add("into", GrammarElement.PREPOSITION);
+        _vocabulary.Add("at", GrammarElement.PREPOSITION);
     }
 
     /* Command types:
@@ -191,22 +191,22 @@ partial class Adventure
                     ouput = Look();
                     break;
                 case "n":
-                    ouput = MovePlayerTo(Dir.NORTH);
+                    ouput = MovePlayerTo(Direction.NORTH);
                     break;
                 case "s":
-                    ouput = MovePlayerTo(Dir.SOUTH);
+                    ouput = MovePlayerTo(Direction.SOUTH);
                     break;
                 case "w":
-                    ouput = MovePlayerTo(Dir.WEST);
+                    ouput = MovePlayerTo(Direction.WEST);
                     break;
                 case "e":
-                    ouput = MovePlayerTo(Dir.EAST);
+                    ouput = MovePlayerTo(Direction.EAST);
                     break;
                 case "up":
-                    ouput = MovePlayerTo(Dir.UP);
+                    ouput = MovePlayerTo(Direction.UP);
                     break;
                 case "down":
-                    ouput = MovePlayerTo(Dir.DOWN);
+                    ouput = MovePlayerTo(Direction.DOWN);
                     break;
                 default:
                     ouput = $"Sorry, I can't {wt1.Word}!";
@@ -263,9 +263,9 @@ partial class Adventure
         {
             // Check to see if Key, s,
             // exists, If not, set WordType to ERROR
-            if (vocab.ContainsKey(k))
+            if (_vocabulary.ContainsKey(k))
             {
-                wordType = vocab[k];
+                wordType = _vocabulary[k];
                 if (wordType == GrammarElement.ARTICLE)
                 {
 
